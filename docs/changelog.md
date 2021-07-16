@@ -1,4 +1,6 @@
 # TBD
+
+# 0.2.0
 ### Breaking Changes
 * Renamed library/module name to `kurtosis-lambda-api-lib`
 
