@@ -1,6 +1,6 @@
 // GENERATED CODE -- DO NOT EDIT!
 
-// package: api_lambda_service
+// package: kurtosis_lambda_rpc_api_service
 // file: api_lambda_service.proto
 
 import * as api_lambda_service_pb from "./api_lambda_service_pb";
