@@ -1,4 +1,4 @@
-// package: api_lambda_service
+// package: kurtosis_lambda_rpc_api_service
 // file: api_lambda_service.proto
 
 import * as jspb from "google-protobuf";
