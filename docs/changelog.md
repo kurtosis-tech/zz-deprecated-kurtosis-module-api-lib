@@ -1,4 +1,9 @@
 # TBD
+### Changes
+* Removed the args & response to the `IsAvailable` endpoint
+
+### Breaking Changes
+* Removed args & response objects to `IsAvailable` endpoint
 
 # 0.2.0
 ### Breaking Changes
