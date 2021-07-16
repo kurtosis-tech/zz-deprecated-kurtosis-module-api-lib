@@ -7,20 +7,10 @@ option go_package = "github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/kur
 
 service LambdaService {
   // Returns true if the Lambda Module service is available
-  rpc IsAvailable(IsAvailableArgs) returns (IsAvailableResponse) {};
+  rpc IsAvailable(google.protobuf.Empty) returns (google.protobuf.Empty) {};
 
   // Executes the main Lambda function in the LambdaService
   rpc Execute(ExecuteArgs) returns (ExecuteResponse) {};
-}
-
-// ==============================================================================================
-//                                      Is Available
-// ==============================================================================================
-message IsAvailableArgs {}
-
-message IsAvailableResponse {
-  // Whether the service is available or not
-  bool is_available = 1;
 }
 
 // ==============================================================================================
