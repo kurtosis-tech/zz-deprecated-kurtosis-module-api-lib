@@ -1,5 +1,7 @@
 # TBD
 
+# 0.1.2
+
 ### Features
 * Defined Lambda Service GRPC contract
 * Add `regenerate-protobuf-output` script file which uses the latest version of `generate-protobuf-bindings` from the devtools repo to generate bindings files
