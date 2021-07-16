@@ -1,2 +1,37 @@
 syntax = "proto3";
 package api_lambda_service;
+
+// NOTE: It sucks that we have this Go-specific logic inside this file (which should be language-agnostic). However, the Protobuf team have
+// taken a hard stance on this being the way it should be done, so we have to do it this way.
+option go_package = "github.com/kurtosis-tech/kurtosis-lambda-client/golang/lambda_api_bindings";
+
+service LambdaService {
+  // Returns true if the Lambda Module service is available
+  rpc IsAvailable(IsAvailableArgs) returns (IsAvailableResponse) {};
+
+  // Executes the main Lambda function in the LambdaService
+  rpc Execute(ExecuteArgs) returns (ExecuteResponse) {};
+}
+
+// ==============================================================================================
+//                                      Is Available
+// ==============================================================================================
+message IsAvailableArgs {}
+
+message IsAvailableResponse {
+  // Whether the service is available or not
+  bool is_available = 1;
+}
+
+// ==============================================================================================
+//                                         Execute
+// ==============================================================================================
+message ExecuteArgs {
+  // JSON-serialized args to the Lambda's execute function
+  string params_json = 1;
+}
+
+message ExecuteResponse {
+  // JSON-serialized response from the Lambda's execute function
+  string response_json = 1;
+}
