@@ -1,5 +1,12 @@
 # TBD
 
+# 0.3.0
+### Changes
+* Removed the args & response to the `IsAvailable` endpoint
+
+### Breaking Changes
+* Removed args & response objects to `IsAvailable` endpoint
+
 # 0.2.0
 ### Breaking Changes
 * Renamed library/module name to `kurtosis-lambda-api-lib`
