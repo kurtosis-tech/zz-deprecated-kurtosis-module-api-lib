@@ -1,6 +1,10 @@
 # TBD
-### Changes
-* Renamed library name
+### Breaking Changes
+* Renamed library/module name to `kurtosis-lambda-api-lib`
+
+### Breaking Changes
+* Renamed Go module name to `kurtosis-lambda-api-lib`
+    * Users will need to replace the old module name, `kurtosis-lambda-client`, with `kurtosis-lambida-api-lib`
 
 # 0.1.3
 * Add `kurtosis_lambda_rpc_api_consts` which contains protocol and port number
