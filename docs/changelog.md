@@ -1,4 +1,6 @@
 # TBD
+
+# 0.1.3
 * Add `kurtosis_lambda_rpc_api_consts` which contains protocol and port number
 * Add an explicit `kurtosis_` in the API binding packages, to clarify that they're Kurtosis specific
 
