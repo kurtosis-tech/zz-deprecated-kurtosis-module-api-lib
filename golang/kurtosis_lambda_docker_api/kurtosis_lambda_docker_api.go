@@ -1,14 +1,13 @@
 package kurtosis_lambda_docker_api
 
 const (
-	// Name of Docker environment variable where JSON-serialized Kurtosis params will be sent
-	KurtosisParamsJsonEnvVar = "KURTOSIS_PARAMS_JSON"
+	// A string defining the loglevel that the Lambda should output
+	// This string should be meaningful to the user, since Kurtosis won't know what logging framework they use
+	LogLevelEnvVar = "LOG_LEVEL"
 
-	// Name of Docker environment variable where users can send custom params for modifying how the lambda behaves
-	CustomParamsJsonEnvVar = "CUSTOM_PARAMS_JSON"
+	// IP:port of the Kurtosis API container
+	ApiContainerSocketEnvVar = "API_CONTAINER_SOCKET"
 
 	// Location on the Lambda Docker container where the Kurtosis volume will be mounted
 	ExecutionVolumeMountpoint = "/kurtosis-execution-volume"
 )
-
-
