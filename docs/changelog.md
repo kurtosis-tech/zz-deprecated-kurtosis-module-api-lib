@@ -1,4 +1,6 @@
 # TBD
+
+# 0.4.0
 ### Removed
 * Removed the Lambda loglevel environment variable
 
