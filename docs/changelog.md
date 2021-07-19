@@ -1,5 +1,10 @@
 # TBD
 
+# 0.3.1
+### Features
+* Add the set of Docker envvars as constants that can be used by both the API container (to send the constants) and Lambda (to receive the constants)
+* Added a Lambda custom params Docker environment variable, analogous to a constructor, so Lambdas can accept data upon creation that will modify their behaviour
+
 # 0.3.0
 ### Changes
 * Removed the args & response to the `IsAvailable` endpoint
