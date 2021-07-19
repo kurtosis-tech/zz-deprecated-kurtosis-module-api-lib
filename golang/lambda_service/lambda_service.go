@@ -3,4 +3,8 @@
  * All Rights Reserved.
  */
 
-package lambda_executor
+package lambda_service
+
+type LambdaService struct {
+
+}
