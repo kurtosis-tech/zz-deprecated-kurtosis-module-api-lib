@@ -12,8 +12,8 @@ root_dirpath="$(dirname "${script_dirpath}")"
 #                                             Constants
 # ==================================================================================================
 GENERATOR_SCRIPT_FILENAME="generate-protobuf-bindings.sh"  # Must be on the PATH
-LAMBDA_API_DIRNAME="lambda-api"
-LAMBDA_BINDINGS_DIRNAME="lambda_api_bindings"
+LAMBDA_API_DIRNAME="kurtosis-lambda-rpc-api"
+LAMBDA_BINDINGS_DIRNAME="kurtosis_lambda_rpc_api_bindings"
 GOLANG_DIRNAME="golang"
 TYPESCRIPT_DIRNAME="typescript"
 

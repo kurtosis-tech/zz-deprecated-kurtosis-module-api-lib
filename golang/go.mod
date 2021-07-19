@@ -1,3 +1,3 @@
-module github.com/kurtosis-tech/kurtosis-lambda-client/golang
+module github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang
 
 go 1.15
