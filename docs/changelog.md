@@ -1,6 +1,6 @@
 # TBD
 ### Changes
-* Renamed library name
+* Renamed library name 
 
 # 0.1.3
 * Add `kurtosis_lambda_rpc_api_consts` which contains protocol and port number
