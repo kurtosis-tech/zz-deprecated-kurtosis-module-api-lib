@@ -1,4 +1,6 @@
 # TBD
+### Features
+* Add the set of Docker envvars as constants that can be used by both the API container (to send the constants) and Lambda (to receive the constants)
 
 # 0.3.0
 ### Changes

@@ -1,10 +1,11 @@
 package golang
 
 import (
-	"flag"
 	"fmt"
 	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/impl"
+	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/kurtosis_lambda_docker_api"
 	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/lib/execution"
+	"github.com/palantir/stacktrace"
 	"github.com/sirupsen/logrus"
 	"os"
 )
@@ -15,26 +16,6 @@ const (
 )
 
 func main() {
-
-	customParamsJsonArg := flag.String(
-		"custom-params-json",
-		"{}",
-		"JSON string containing custom data that the lambda will deserialize to modify runtime behaviour",
-	)
-
-	kurtosisLambdaApiSocketArg := flag.String(
-		"kurtosis-lambda-api-socket",
-		"",
-		"Socket in the form of address:port of the Kurtosis Lambda API",
-	)
-
-	logLevelArg := flag.String(
-		"log-level",
-		"",
-		"String indicating the loglevel that the lambda should output with",
-	)
-
-	flag.Parse()
 
 	// >>>>>>>>>>>>>>>>>>> REPLACE WITH YOUR OWN CONFIGURATOR <<<<<<<<<<<<<<<<<<<<<<<<
 	configurator := impl.NewExampleLambdaConfigurator()
@@ -47,4 +28,13 @@ func main() {
 		os.Exit(failureExitCode)
 	}
 	os.Exit(successExitCode)
+}
+
+//TODO refactor this, create a Configuration Struct
+func getRunConfigurations() (string, string, string, error) {
+	apiContainerSocketEnvVar, found := os.LookupEnv(kurtosis_lambda_docker_api.ApiContainerSocketEnvVar)
+	if !found {
+		return "", "", "", stacktrace.NewError("No API container socket environment variable '%v' defined", kurtosis_lambda_docker_api.ApiContainerSocketEnvVar)
+	}
+
 }
