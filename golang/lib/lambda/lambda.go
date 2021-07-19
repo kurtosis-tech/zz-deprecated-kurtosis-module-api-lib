@@ -7,7 +7,7 @@ package lambda
 
 type Lambda interface {
 
-	IsAvailable() bool
+	IsAvailable() error
 
 	Execute(serializedParams string) (serializedResult string, resultError error)
 }

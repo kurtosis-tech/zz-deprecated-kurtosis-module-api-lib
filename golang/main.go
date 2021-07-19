@@ -2,7 +2,7 @@ package golang
 
 import (
 	"fmt"
-	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/impl"
+	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/example"
 	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/kurtosis_lambda_docker_api"
 	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/lib/execution"
 	"github.com/palantir/stacktrace"
@@ -18,17 +18,17 @@ const (
 func main() {
 
 	// >>>>>>>>>>>>>>>>>>> REPLACE WITH YOUR OWN CONFIGURATOR <<<<<<<<<<<<<<<<<<<<<<<<
-	configurator := impl.NewExampleLambdaConfigurator()
+	configurator := example.NewExampleLambdaConfigurator()
 	// >>>>>>>>>>>>>>>>>>> REPLACE WITH YOUR OWN CONFIGURATOR <<<<<<<<<<<<<<<<<<<<<<<<
 
-	apiContainerSocketArg, logLevelArg, serializedCustomParamsArg, err := getArgs()
+	apiContainerSocketArg, serializedCustomParamsArg, err := getArgs()
 	if err != nil {
 		logrus.Errorf("An error occurred getting the Lambda args:")
 		fmt.Fprintln(logrus.StandardLogger().Out, err)
 		os.Exit(failureExitCode)
 	}
 
-	lambdaExecutor := execution.NewLambdaExecutor(apiContainerSocketArg, logLevelArg, serializedCustomParamsArg, configurator)
+	lambdaExecutor := execution.NewLambdaExecutor(apiContainerSocketArg, serializedCustomParamsArg, configurator)
 	if err := lambdaExecutor.Run(); err != nil {
 		logrus.Errorf("An error occurred running the lambda executor:")
 		fmt.Fprintln(logrus.StandardLogger().Out, err)
@@ -37,21 +37,16 @@ func main() {
 	os.Exit(successExitCode)
 }
 
-func getArgs() (string, string, string, error) {
+func getArgs() (string, string, error) {
 	apiContainerSocketEnvVar, found := os.LookupEnv(kurtosis_lambda_docker_api.ApiContainerSocketEnvVar)
 	if !found {
-		return "", "", "", stacktrace.NewError("No API container socket environment variable '%v' defined", kurtosis_lambda_docker_api.ApiContainerSocketEnvVar)
-	}
-
-	logLevelEnvVar, found := os.LookupEnv(kurtosis_lambda_docker_api.LogLevelEnvVar)
-	if !found {
-		return "", "", "", stacktrace.NewError("No log level environment variable '%v' defined", kurtosis_lambda_docker_api.LogLevelEnvVar)
+		return "", "", stacktrace.NewError("No API container socket environment variable '%v' defined", kurtosis_lambda_docker_api.ApiContainerSocketEnvVar)
 	}
 
 	serializedCustomParamsEnvVar, found := os.LookupEnv(kurtosis_lambda_docker_api.SerializedCustomParamsEnvVar)
 	if !found {
-		return "", "", "", stacktrace.NewError("No serialized custom params environment variable '%v' defined", kurtosis_lambda_docker_api.SerializedCustomParamsEnvVar)
+		return "", "", stacktrace.NewError("No serialized custom params environment variable '%v' defined", kurtosis_lambda_docker_api.SerializedCustomParamsEnvVar)
 	}
 
-	return apiContainerSocketEnvVar, logLevelEnvVar, serializedCustomParamsEnvVar, nil
+	return apiContainerSocketEnvVar, serializedCustomParamsEnvVar, nil
 }

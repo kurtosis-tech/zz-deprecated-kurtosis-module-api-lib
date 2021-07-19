@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package impl
+package example
 
 type ExampleLambda struct {
 	isKurtosisCoreDevMode bool
@@ -11,4 +11,12 @@ type ExampleLambda struct {
 
 func NewExampleLambda(isKurtosisCoreDevMode bool) *ExampleLambda {
 	return &ExampleLambda{isKurtosisCoreDevMode: isKurtosisCoreDevMode}
+}
+
+func (e ExampleLambda) IsAvailable() error {
+	return nil
+}
+
+func (e ExampleLambda) Execute(serializedParams string) (serializedResult string, resultError error) {
+	panic("implement me")
 }

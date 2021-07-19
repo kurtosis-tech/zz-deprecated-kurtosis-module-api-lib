@@ -11,7 +11,5 @@ import (
 
 type LambdaConfigurator interface {
 
-	SetLogLevel(logLevelStr string) error
-
-	ParseParamsAndCreateLambda(paramsJsonStr string) (lambda.Lambda, error)
+	ParseParamsAndCreateLambda(serializedCustomParamsStr string) (lambda.Lambda, error)
 }
