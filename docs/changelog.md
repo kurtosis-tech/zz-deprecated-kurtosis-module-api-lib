@@ -1,4 +1,10 @@
 # TBD
+### Removed
+* Removed the Lambda loglevel environment variable
+
+### Breaking Changes
+* Removed the Lambda loglevel environment variable as a firstclass concept, since that should be handled by the Lambda itself 
+    * Users depending on this variable should push loglevel-setting into the Lambda custom initialization params
 
 # 0.3.1
 ### Features
