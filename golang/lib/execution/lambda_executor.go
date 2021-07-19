@@ -19,35 +19,35 @@ const (
 )
 
 type LambdaExecutor struct {
-	lambdaApiSocket string
-	logLevelStr     string
-	paramsJsonStr   string
-	configurator    LambdaConfigurator
+	apiContainerSocket        string
+	logLevelStr               string
+	serializedCustomParamsStr string
+	configurator              LambdaConfigurator
 }
 
-func NewLambdaExecutor(lambdaApiSocket string, logLevelStr string, paramsJsonStr string, configurator LambdaConfigurator) *LambdaExecutor {
-	return &LambdaExecutor{lambdaApiSocket: lambdaApiSocket, logLevelStr: logLevelStr, paramsJsonStr: paramsJsonStr, configurator: configurator}
+func NewLambdaExecutor(apiContainerSocket string, logLevelStr string, serializedCustomParamsStr string, configurator LambdaConfigurator) *LambdaExecutor {
+	return &LambdaExecutor{apiContainerSocket: apiContainerSocket, logLevelStr: logLevelStr, serializedCustomParamsStr: serializedCustomParamsStr, configurator: configurator}
 }
 
 func (executor LambdaExecutor) Run() error {
 	if err := executor.configurator.SetLogLevel(executor.logLevelStr); err != nil {
-		return stacktrace.Propagate(err, "An error occurred setting the loglevel before running the testsuite")
+		return stacktrace.Propagate(err, "An error occurred setting the loglevel before running the lambda")
 	}
 
-	lambda, err := executor.configurator.ParseParamsAndCreateLambda(executor.paramsJsonStr)
+	lambda, err := executor.configurator.ParseParamsAndCreateLambda(executor.serializedCustomParamsStr)
 	if err != nil {
-		return stacktrace.Propagate(err, "An error occurred parsing the suite params JSON and creating the testsuite")
+		return stacktrace.Propagate(err, "An error occurred parsing the serialized custom params and creating the lambda")
 	}
 
 	var lambdaServiceClient kurtosis_lambda_rpc_api_bindings.LambdaServiceClient = nil
-	if executor.lambdaApiSocket != "" {
+	if executor.apiContainerSocket != "" {
 		// TODO SECURITY: Use HTTPS to ensure we're connecting to the real Lamba API servers
-		conn, err := grpc.Dial(executor.lambdaApiSocket, grpc.WithInsecure())
+		conn, err := grpc.Dial(executor.apiContainerSocket, grpc.WithInsecure())
 		if err != nil {
 			return stacktrace.Propagate(
 				err,
 				"An error occurred creating a connection to the Kurtosis API server at '%v'",
-				executor.lambdaApiSocket,
+				executor.apiContainerSocket,
 			)
 		}
 		defer conn.Close()
@@ -60,7 +60,7 @@ func (executor LambdaExecutor) Run() error {
 		kurtosis_lambda_rpc_api_bindings.RegisterLambdaServiceServer(grpcServer, lambdaServiceServer)
 	}
 
-	lambaServer := server.NewMinimalGRPCServer(
+	lambdaServer := server.NewMinimalGRPCServer(
 		kurtosis_lambda_rpc_api_consts.ListenPort,
 		kurtosis_lambda_rpc_api_consts.ListenProtocol,
 		grpcServerStopGracePeriod,
@@ -68,7 +68,7 @@ func (executor LambdaExecutor) Run() error {
 			lambdaServiceRegistrationFunc,
 		},
 	)
-	if err := lambaServer.Run(); err != nil {
+	if err := lambdaServer.Run(); err != nil {
 		return stacktrace.Propagate(err, "An error occurred running the lambda server")
 	}
 
