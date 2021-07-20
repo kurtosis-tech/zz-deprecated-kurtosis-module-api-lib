@@ -15,7 +15,7 @@
 
 # 0.3.0
 ### Changes
-* Removed the args & response to the `IsAvailable` endpoint
+* Renamed library name
 
 ### Breaking Changes
 * Removed args & response objects to `IsAvailable` endpoint
