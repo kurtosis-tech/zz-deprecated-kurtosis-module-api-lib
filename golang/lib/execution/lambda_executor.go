@@ -36,24 +36,24 @@ func (executor LambdaExecutor) Run() error {
 
 	lambda, err := executor.configurator.ParseParamsAndCreateLambda(executor.serializedCustomParamsStr)
 	if err != nil {
-		return stacktrace.Propagate(err, "An error occurred parsing the serialized custom params and creating the lambda")
+		return stacktrace.Propagate(err, "An error occurred parsing the serialized custom params and creating the Lambda")
 	}
 
-	var networkCtx *networks.NetworkContext
-	if executor.apiContainerSocket != "" {
-		// TODO SECURITY: Use HTTPS to verify we're hitting the correct API container
-		conn, err := grpc.Dial(executor.apiContainerSocket , grpc.WithInsecure())
-		if err != nil {
-			return stacktrace.Propagate(err, "An error occurred dialling the API container at '%v'", executor.apiContainerSocket)
-		}
-
-		apiClient := kurtosis_core_rpc_api_bindings.NewApiContainerServiceClient(conn)
-		networkCtx = networks.NewNetworkContext(
-			apiClient,
-			map[services.FilesArtifactID]string{},
-			kurtosis_lambda_docker_api.ExecutionVolumeMountpoint,
-		)
+	if executor.apiContainerSocket == "" {
+		return stacktrace.NewError("The executor's field 'apiContainerSocket' was unexpectedly empty")
 	}
+	// TODO SECURITY: Use HTTPS to verify we're hitting the correct API container
+	conn, err := grpc.Dial(executor.apiContainerSocket, grpc.WithInsecure())
+	if err != nil {
+		return stacktrace.Propagate(err, "An error occurred dialling the API container at '%v'", executor.apiContainerSocket)
+	}
+
+	apiClient := kurtosis_core_rpc_api_bindings.NewApiContainerServiceClient(conn)
+	networkCtx := networks.NewNetworkContext(
+		apiClient,
+		map[services.FilesArtifactID]string{},
+		kurtosis_lambda_docker_api.ExecutionVolumeMountpoint,
+	)
 
 	lambdaServiceServer := NewLambdaServiceServer(lambda, networkCtx)
 	lambdaServiceRegistrationFunc := func(grpcServer *grpc.Server) {
@@ -69,7 +69,7 @@ func (executor LambdaExecutor) Run() error {
 		},
 	)
 	if err := lambdaServer.Run(); err != nil {
-		return stacktrace.Propagate(err, "An error occurred running the lambda server")
+		return stacktrace.Propagate(err, "An error occurred running the Lambda server")
 	}
 
 	return nil

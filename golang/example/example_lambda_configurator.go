@@ -18,31 +18,18 @@ func NewExampleLambdaConfigurator() *ExampleLambdaConfigurator {
 	return &ExampleLambdaConfigurator{}
 }
 
-func (t ExampleLambdaConfigurator) SetLogLevel(logLevelStr string) error {
-	level, err := logrus.ParseLevel(logLevelStr)
-	if err != nil {
-		return stacktrace.Propagate(err, "An error occurred parsing loglevel string '%v'", logLevelStr)
-	}
-	logrus.SetLevel(level)
-	logrus.SetFormatter(&logrus.TextFormatter{
-		ForceColors:   true,
-		FullTimestamp: true,
-	})
-	return nil
-}
-
 func (t ExampleLambdaConfigurator) ParseParamsAndCreateLambda(serializedCustomParamsStr string) (lambda.Lambda, error) {
 	serializedCustomParamsBytes := []byte(serializedCustomParamsStr)
 	var args ExampleLambdaArgs
 	if err := json.Unmarshal(serializedCustomParamsBytes, &args); err != nil {
-		return nil, stacktrace.Propagate(err, "An error occurred deserializing the Lambda serialized custom params")
+		return nil, stacktrace.Propagate(err, "An error occurred deserializing the Lambda serialized custom params with value '%v", serializedCustomParamsStr)
 	}
 
-	lambda := NewExampleLambda(args.IsKurtosisCoreDevMode)
+	lambda := NewExampleLambda()
 
-	err := setLogLevel(args.logLevel)
+	err := setLogLevel(args.LogLevel)
 	if err != nil {
-		return nil, stacktrace.Propagate(err, "An error occurred deserializing the Lambda params JSON")
+		return nil, stacktrace.Propagate(err, "An error occurred setting the log level")
 	}
 
 	return lambda, nil

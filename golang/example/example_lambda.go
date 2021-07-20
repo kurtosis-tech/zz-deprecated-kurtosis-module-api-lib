@@ -5,18 +5,19 @@
 
 package example
 
+import "github.com/kurtosis-tech/kurtosis-client/golang/lib/networks"
+
 type ExampleLambda struct {
-	isKurtosisCoreDevMode bool
 }
 
-func NewExampleLambda(isKurtosisCoreDevMode bool) *ExampleLambda {
-	return &ExampleLambda{isKurtosisCoreDevMode: isKurtosisCoreDevMode}
+func NewExampleLambda() *ExampleLambda {
+	return &ExampleLambda{}
 }
 
 func (e ExampleLambda) IsAvailable() error {
 	return nil
 }
 
-func (e ExampleLambda) Execute(serializedParams string) (serializedResult string, resultError error) {
+func (e ExampleLambda) Execute(networkCtx *networks.NetworkContext, serializedParams string) (serializedResult string, resultError error) {
 	panic("implement me")
 }
