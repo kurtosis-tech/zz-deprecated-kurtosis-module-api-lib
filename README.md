@@ -1,3 +1,3 @@
-Kurtosis Lambda Client
-======================
-This repo contains clients for communicating with the Kurtosis Lambda server
+Kurtosis Lambda API LIB 
+=======================
+This repo contains the Lambda API library; users should use it to create a custom implementation of Kurtosis Lambda Modules
