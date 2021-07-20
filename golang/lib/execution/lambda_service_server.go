@@ -27,15 +27,17 @@ func NewLambdaServiceServer(lambda lambda.Lambda, networkCtx *networks.NetworkCo
 }
 
 func (lambdaService *LambdaServiceServer) IsAvailable(ctx context.Context, empty *emptypb.Empty) (*emptypb.Empty, error) {
-
-	err := lambdaService.lambda.IsAvailable()
-	if err != nil {
-		return &emptypb.Empty{}, stacktrace.Propagate(err, "Lambda %v is not available", reflect.TypeOf(lambdaService.lambda).String())
-	}
-
 	return &emptypb.Empty{}, nil
 }
 
 func (lambdaService *LambdaServiceServer) Execute(ctx context.Context, args *kurtosis_lambda_rpc_api_bindings.ExecuteArgs) (*kurtosis_lambda_rpc_api_bindings.ExecuteResponse, error) {
-	panic("implement me")
+	result, err := lambdaService.lambda.Execute(lambdaService.networkCtx, args.ParamsJson)
+	if err != nil {
+		return nil, stacktrace.Propagate(err, "Lambda %v is not available", reflect.TypeOf(lambdaService.lambda).String())
+	}
+	executeResponse := &kurtosis_lambda_rpc_api_bindings.ExecuteResponse{
+		ResponseJson: result,
+	}
+
+	return executeResponse, nil
 }
