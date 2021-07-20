@@ -11,7 +11,7 @@ Some examples of Lambda usage:
 - Failure tests using a Lambda that randomly restarts services in your network, a la Netflix' Chaos Monkey
 - Partition tolerance tests using a Lambda that periodically repartitions & heals your network
 
-More formatlly, a Lambda is:
+More formally, a Lambda is:
 
 - A gRPC server
 - With a connection to the Kurtosis engine
