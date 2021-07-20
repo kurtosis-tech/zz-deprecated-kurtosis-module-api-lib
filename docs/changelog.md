@@ -1,4 +1,6 @@
 # TBD
+### Features
+* Added much more detail to the README
 
 # 0.4.0
 ### Removed
