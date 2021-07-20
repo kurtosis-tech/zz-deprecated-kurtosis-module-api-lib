@@ -25,6 +25,8 @@ func (t ExampleLambdaConfigurator) ParseParamsAndCreateLambda(serializedCustomPa
 		return nil, stacktrace.Propagate(err, "An error occurred deserializing the Lambda serialized custom params with value '%v", serializedCustomParamsStr)
 	}
 
+	//TODO VALIDATE ARGUMENTS log level can't be an empty string
+
 	lambda := NewExampleLambda()
 
 	err := setLogLevel(args.LogLevel)

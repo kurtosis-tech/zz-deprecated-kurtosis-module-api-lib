@@ -5,7 +5,10 @@
 
 package example
 
-import "github.com/kurtosis-tech/kurtosis-client/golang/lib/networks"
+import (
+	"github.com/kurtosis-tech/kurtosis-client/golang/lib/networks"
+	"github.com/sirupsen/logrus"
+)
 
 type ExampleLambda struct {
 }
@@ -19,5 +22,8 @@ func (e ExampleLambda) IsAvailable() error {
 }
 
 func (e ExampleLambda) Execute(networkCtx *networks.NetworkContext, serializedParams string) (serializedResult string, resultError error) {
-	panic("implement me")
+	logrus.Infof("Example Lambda receives serializedParams '%v'", serializedParams)
+	serializedResult = "Example Lambda Module successful execution"
+	logrus.Info("Example Lambda executed successfully")
+	return serializedResult, nil
 }
