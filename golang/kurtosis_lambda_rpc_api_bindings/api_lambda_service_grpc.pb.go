@@ -7,6 +7,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -19,7 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type LambdaServiceClient interface {
 	// Returns true if the Lambda Module service is available
-	IsAvailable(ctx context.Context, in *IsAvailableArgs, opts ...grpc.CallOption) (*IsAvailableResponse, error)
+	IsAvailable(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// Executes the main Lambda function in the LambdaService
 	Execute(ctx context.Context, in *ExecuteArgs, opts ...grpc.CallOption) (*ExecuteResponse, error)
 }
@@ -32,8 +33,8 @@ func NewLambdaServiceClient(cc grpc.ClientConnInterface) LambdaServiceClient {
 	return &lambdaServiceClient{cc}
 }
 
-func (c *lambdaServiceClient) IsAvailable(ctx context.Context, in *IsAvailableArgs, opts ...grpc.CallOption) (*IsAvailableResponse, error) {
-	out := new(IsAvailableResponse)
+func (c *lambdaServiceClient) IsAvailable(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/kurtosis_lambda_rpc_api_service.LambdaService/IsAvailable", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -55,7 +56,7 @@ func (c *lambdaServiceClient) Execute(ctx context.Context, in *ExecuteArgs, opts
 // for forward compatibility
 type LambdaServiceServer interface {
 	// Returns true if the Lambda Module service is available
-	IsAvailable(context.Context, *IsAvailableArgs) (*IsAvailableResponse, error)
+	IsAvailable(context.Context, *emptypb.Empty) (*emptypb.Empty, error)
 	// Executes the main Lambda function in the LambdaService
 	Execute(context.Context, *ExecuteArgs) (*ExecuteResponse, error)
 	mustEmbedUnimplementedLambdaServiceServer()
@@ -65,7 +66,7 @@ type LambdaServiceServer interface {
 type UnimplementedLambdaServiceServer struct {
 }
 
-func (UnimplementedLambdaServiceServer) IsAvailable(context.Context, *IsAvailableArgs) (*IsAvailableResponse, error) {
+func (UnimplementedLambdaServiceServer) IsAvailable(context.Context, *emptypb.Empty) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method IsAvailable not implemented")
 }
 func (UnimplementedLambdaServiceServer) Execute(context.Context, *ExecuteArgs) (*ExecuteResponse, error) {
@@ -85,7 +86,7 @@ func RegisterLambdaServiceServer(s grpc.ServiceRegistrar, srv LambdaServiceServe
 }
 
 func _LambdaService_IsAvailable_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IsAvailableArgs)
+	in := new(emptypb.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -97,7 +98,7 @@ func _LambdaService_IsAvailable_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: "/kurtosis_lambda_rpc_api_service.LambdaService/IsAvailable",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LambdaServiceServer).IsAvailable(ctx, req.(*IsAvailableArgs))
+		return srv.(LambdaServiceServer).IsAvailable(ctx, req.(*emptypb.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
