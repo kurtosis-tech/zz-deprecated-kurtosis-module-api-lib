@@ -1,4 +1,6 @@
 # TBD
+
+# 0.4.1
 ### Features
 * Add `LambdaConfigurator` interface; users should create their own custom implementation of this to configure their own Lambda
 * Add `LambdaExecutor` which accepts a `LambdaConfigurator` implementation and is responsible for starting the Lambda server
