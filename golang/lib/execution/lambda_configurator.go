@@ -10,6 +10,5 @@ import (
 )
 
 type LambdaConfigurator interface {
-
 	ParseParamsAndCreateLambda(serializedCustomParamsStr string) (lambda.Lambda, error)
 }

@@ -15,6 +15,7 @@ import (
 	"github.com/kurtosis-tech/minimal-grpc-server/server"
 	"github.com/palantir/stacktrace"
 	"google.golang.org/grpc"
+	"os"
 	"time"
 )
 
@@ -23,29 +24,34 @@ const (
 )
 
 type LambdaExecutor struct {
-	apiContainerSocket        string
-	serializedCustomParamsStr string
-	configurator              LambdaConfigurator
+	configurator LambdaConfigurator
 }
 
-func NewLambdaExecutor(apiContainerSocket string, serializedCustomParamsStr string, configurator LambdaConfigurator) *LambdaExecutor {
-	return &LambdaExecutor{apiContainerSocket: apiContainerSocket, serializedCustomParamsStr: serializedCustomParamsStr, configurator: configurator}
+func NewLambdaExecutor(configurator LambdaConfigurator) *LambdaExecutor {
+	return &LambdaExecutor{configurator: configurator}
 }
 
 func (executor LambdaExecutor) Run() error {
 
-	lambda, err := executor.configurator.ParseParamsAndCreateLambda(executor.serializedCustomParamsStr)
+	serializedCustomParams, err := getEnvVar(kurtosis_lambda_docker_api.SerializedCustomParamsEnvVar, "the serialized custom params that the Lambda will consume")
+	if err != nil {
+		return stacktrace.Propagate(err, "An error occurred when trying to get the serialized custom params environment variable")
+	}
+
+	lambda, err := executor.configurator.ParseParamsAndCreateLambda(serializedCustomParams)
 	if err != nil {
 		return stacktrace.Propagate(err, "An error occurred parsing the serialized custom params and creating the Lambda")
 	}
 
-	if executor.apiContainerSocket == "" {
-		return stacktrace.NewError("The executor's field 'apiContainerSocket' was unexpectedly empty")
+	apiContainerSocket, err := getEnvVar(kurtosis_lambda_docker_api.ApiContainerSocketEnvVar, "the socket value used in API container connection")
+    if err != nil {
+		return stacktrace.Propagate(err, "An error occurred when trying to get the API container socket environment variable")
 	}
+
 	// TODO SECURITY: Use HTTPS to verify we're hitting the correct API container
-	conn, err := grpc.Dial(executor.apiContainerSocket, grpc.WithInsecure())
+	conn, err := grpc.Dial(apiContainerSocket, grpc.WithInsecure())
 	if err != nil {
-		return stacktrace.Propagate(err, "An error occurred dialling the API container at '%v'", executor.apiContainerSocket)
+		return stacktrace.Propagate(err, "An error occurred dialling the API container at '%v'", apiContainerSocket)
 	}
 
 	apiClient := kurtosis_core_rpc_api_bindings.NewApiContainerServiceClient(conn)
@@ -73,4 +79,20 @@ func (executor LambdaExecutor) Run() error {
 	}
 
 	return nil
+}
+
+// ====================================================================================================
+//                                       Private helper functions
+// ====================================================================================================
+func getEnvVar(envVarName string, envVarDescription string) (string, error) {
+	envVarValue, found := os.LookupEnv(envVarName)
+
+	if !found {
+		return "", stacktrace.NewError("Expected an '%v' environment variable containing '%v', but none was found", envVarName, envVarDescription)
+	}
+	if envVarValue == "" {
+		return "", stacktrace.NewError("The '%v' serialized custom params environment variable was defined, but is emptystring", envVarName)
+	}
+
+	return envVarValue, nil
 }
