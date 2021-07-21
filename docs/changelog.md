@@ -1,5 +1,13 @@
 # TBD
 
+# 0.4.1
+### Features
+* Add `LambdaConfigurator` interface; users should create their own custom implementation of this to configure their own Lambda
+* Add `LambdaExecutor` which accepts a `LambdaConfigurator` implementation and is responsible for starting the Lambda server
+* Add `LambdaServiceServer` which is the RPC server implementation of `kurtosis-lambda-rpc-api`
+* Add `Lambda` interface; users should create their own custom Lambda implementations based on this contract which will be returned by the `LambdaConfigurator`
+* Added much more detail to the README
+
 # 0.4.0
 ### Removed
 * Removed the Lambda loglevel environment variable
@@ -15,7 +23,7 @@
 
 # 0.3.0
 ### Changes
-* Removed the args & response to the `IsAvailable` endpoint
+* Renamed library name
 
 ### Breaking Changes
 * Removed args & response objects to `IsAvailable` endpoint
