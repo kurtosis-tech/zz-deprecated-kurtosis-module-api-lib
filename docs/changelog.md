@@ -1,9 +1,9 @@
 # TBD
 ### Features
-* Add `lambda_configurator` interface; users should create custom implementation of this to configure their own Lambda
-* Add `lambda_executor` which is responsible for starts the server, using an implementation of `lambda_configurator`, with the Lambda implementation
-* Add `lambda_service_service` which is the RPC server implementation of `kurtosis-lambda-rpc-api`
-* Add `lambda` interface; users should create their own custom Lambda implementations based on this contract
+* Add `LambdaConfigurator` interface; users should create their own custom implementation of this to configure their own Lambda
+* Add `LambdaExecutor` which accepts a `LambdaConfigurator` implementation and is responsible for starting the Lambda server
+* Add `LambdaServiceServer` which is the RPC server implementation of `kurtosis-lambda-rpc-api`
+* Add `Lambda` interface; users should create their own custom Lambda implementations based on this contract which will be returned by the `LambdaConfigurator`
 
 # 0.4.0
 ### Removed

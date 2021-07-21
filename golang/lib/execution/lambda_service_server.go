@@ -12,7 +12,6 @@ import (
 	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/lib/lambda"
 	"github.com/palantir/stacktrace"
 	"google.golang.org/protobuf/types/known/emptypb"
-	"reflect"
 )
 
 type LambdaServiceServer struct {
@@ -33,7 +32,7 @@ func (lambdaService *LambdaServiceServer) IsAvailable(ctx context.Context, empty
 func (lambdaService *LambdaServiceServer) Execute(ctx context.Context, args *kurtosis_lambda_rpc_api_bindings.ExecuteArgs) (*kurtosis_lambda_rpc_api_bindings.ExecuteResponse, error) {
 	result, err := lambdaService.lambda.Execute(lambdaService.networkCtx, args.ParamsJson)
 	if err != nil {
-		return nil, stacktrace.Propagate(err, "Lambda %v is not available", reflect.TypeOf(lambdaService.lambda).String())
+		return nil, stacktrace.Propagate(err, "An error occurred executing the Lambda")
 	}
 	executeResponse := &kurtosis_lambda_rpc_api_bindings.ExecuteResponse{
 		ResponseJson: result,
