@@ -45,6 +45,7 @@
 * Defined Lambda Service GRPC contract
 * Add `regenerate-protobuf-output` script file which uses the latest version of `generate-protobuf-bindings` from the devtools repo to generate bindings files
 * Generated the Golang and Typescript bindings files
+* Add the documentation of the library
 
 # 0.1.1
 * Init commit
