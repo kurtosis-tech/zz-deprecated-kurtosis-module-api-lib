@@ -5,7 +5,7 @@ import "google/protobuf/empty.proto";
 
 // NOTE: It sucks that we have this Go-specific logic inside this file (which should be language-agnostic). However, the Protobuf team have
 // taken a hard stance on this being the way it should be done, so we have to do it this way.
-option go_package = "github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/kurtosis_lambda_rpc_api_bindings";
+option go_package = "github.com/kurtosis-tech/kurtosis-kurtosis-lambda-api-lib/golang/kurtosis_lambda_rpc_api_bindings";
 
 service LambdaService {
   // Returns true if the Lambda Module service is available

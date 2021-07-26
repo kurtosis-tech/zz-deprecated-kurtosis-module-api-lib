@@ -23,22 +23,22 @@ const (
 	grpcServerStopGracePeriod = 5 * time.Second
 )
 
-type LambdaExecutor struct {
-	configurator LambdaConfigurator
+type KurtosisLambdaExecutor struct {
+	configurator KurtosisLambdaConfigurator
 }
 
-func NewLambdaExecutor(configurator LambdaConfigurator) *LambdaExecutor {
-	return &LambdaExecutor{configurator: configurator}
+func NewKurtosisLambdaExecutor(configurator KurtosisLambdaConfigurator) *KurtosisLambdaExecutor {
+	return &KurtosisLambdaExecutor{configurator: configurator}
 }
 
-func (executor LambdaExecutor) Run() error {
+func (executor KurtosisLambdaExecutor) Run() error {
 
 	serializedCustomParams, err := getEnvVar(kurtosis_lambda_docker_api.SerializedCustomParamsEnvVar, "the serialized custom params that the Lambda will consume")
 	if err != nil {
 		return stacktrace.Propagate(err, "An error occurred when trying to get the serialized custom params environment variable")
 	}
 
-	lambda, err := executor.configurator.ParseParamsAndCreateLambda(serializedCustomParams)
+	lambda, err := executor.configurator.ParseParamsAndCreateKurtosisLambda(serializedCustomParams)
 	if err != nil {
 		return stacktrace.Propagate(err, "An error occurred parsing the serialized custom params and creating the Lambda")
 	}
@@ -61,7 +61,7 @@ func (executor LambdaExecutor) Run() error {
 		kurtosis_lambda_docker_api.ExecutionVolumeMountpoint,
 	)
 
-	lambdaServiceServer := NewLambdaServiceServer(lambda, networkCtx)
+	lambdaServiceServer := NewKurtosisLambdaServiceServer(lambda, networkCtx)
 	lambdaServiceRegistrationFunc := func(grpcServer *grpc.Server) {
 		kurtosis_lambda_rpc_api_bindings.RegisterLambdaServiceServer(grpcServer, lambdaServiceServer)
 	}
