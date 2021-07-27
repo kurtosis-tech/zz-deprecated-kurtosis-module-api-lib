@@ -25,7 +25,7 @@ KurtosisLambdaConfigurator
 --------------------------
 Object responsible for creating and configuring a custom implementation of a Kurtosis Lambda.
 
-### parseParamsAndCreateKurtosisLambda(String serializedCustomParamsStr) ([KurtosisLambda][kurtosislambda] kurtosisLambda)
+### parseParamsAndCreateKurtosisLambda(String serializedCustomParamsStr) -\> ([KurtosisLambda][kurtosislambda] kurtosisLambda)
 Creates and configures a Kurtosis Lambda configured with the given serialized custom params.
 
 **Args**
