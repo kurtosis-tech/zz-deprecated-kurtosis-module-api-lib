@@ -1,5 +1,14 @@
 # TBD
 
+### Features
+* Add library's documentation
+
+### Breaking Changes
+* Renamed `Lamba` -> `KurtosisLambda`
+* Renamed `LambdaConfigurator` -> `KurtosisLambdaConfigurator`
+* Renamed `LambdaExecutor` -> `KurtosisLambdaExecutor`
+* Renamed `LambdaServiceServer` -> `KurtosisLambdaServiceServer`
+
 # 0.4.1
 ### Features
 * Add `LambdaConfigurator` interface; users should create their own custom implementation of this to configure their own Lambda
