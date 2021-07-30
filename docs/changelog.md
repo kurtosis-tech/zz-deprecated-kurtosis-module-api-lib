@@ -1,5 +1,10 @@
 # TBD
 
+# 0.5.1
+### Changes
+* Updated Kurtosis Client dependency version
+* Updated `NewNetworkContext` arguments number when it's called in `KurtosisLambdaExecutor.Run` method
+
 # 0.5.0
 
 ### Features
