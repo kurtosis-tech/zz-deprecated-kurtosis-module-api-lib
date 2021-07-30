@@ -44,8 +44,11 @@ github.com/google/uuid v1.1.2/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+
 github.com/grpc-ecosystem/grpc-gateway v1.16.0/go.mod h1:BDjrQk3hbvj6Nolgz8mAMFbcEtjT1g+wF4CSlocrBnw=
 github.com/konsorten/go-windows-terminal-sequences v1.0.1/go.mod h1:T0+1ngSBFLxvqU3pZ+m/2kptfBszLMUkC4ZK/EgS/cQ=
 github.com/kurtosis-tech/kurtosis-client v0.0.0-20210719180545-8b404a46f144 h1:cr0XH/xIypSXl8AstlC1Lu4hH2yaS7wLQaZTcsHw0QA=
+github.com/kurtosis-tech/kurtosis-client v0.0.0-20210727165601-bf782c2aea7e h1:FHoN0bmEKoV/reG+GRcSTJ4OJn84UcAYz+GjOVEpV+s=
 github.com/kurtosis-tech/kurtosis-client/golang v0.0.0-20210719180545-8b404a46f144 h1:eWilkFtqFOgm+KAiDGoApMz1nBbWzKlYc0MaDl7cwf0=
 github.com/kurtosis-tech/kurtosis-client/golang v0.0.0-20210719180545-8b404a46f144/go.mod h1:UQD+w+gp8PItWKvIKJGO2PExpmO6p0XhWfBOtGPzBLM=
+github.com/kurtosis-tech/kurtosis-client/golang v0.0.0-20210727165601-bf782c2aea7e h1:LOO6roxCOZBA4YaBptSagR4o7WEdqropfUwbB23d2Iw=
+github.com/kurtosis-tech/kurtosis-client/golang v0.0.0-20210727165601-bf782c2aea7e/go.mod h1:UQD+w+gp8PItWKvIKJGO2PExpmO6p0XhWfBOtGPzBLM=
 github.com/kurtosis-tech/kurtosis-lambda-api-lib v0.0.0-20210720161922-79da4680fb14 h1:vv3IrfIMH68GQnubTxNuWZGywvEhF0iDTtdQC2TKYA4=
 github.com/kurtosis-tech/minimal-grpc-server v0.0.0-20210504182615-82226e94877b h1:nT5nOiGX2r02IYaQDQ81PHKcLssLcXuRNjzNCpGL6PU=
 github.com/kurtosis-tech/minimal-grpc-server v0.0.0-20210504182615-82226e94877b/go.mod h1:/XcImLhsJTy+xD9xN9t6eV8ASM9s/OU5g/KqBb8DCEg=

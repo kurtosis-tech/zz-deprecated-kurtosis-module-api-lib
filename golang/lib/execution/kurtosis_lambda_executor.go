@@ -8,7 +8,6 @@ package execution
 import (
 	"github.com/kurtosis-tech/kurtosis-client/golang/kurtosis_core_rpc_api_bindings"
 	"github.com/kurtosis-tech/kurtosis-client/golang/lib/networks"
-	"github.com/kurtosis-tech/kurtosis-client/golang/lib/services"
 	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/kurtosis_lambda_docker_api"
 	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/kurtosis_lambda_rpc_api_bindings"
 	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/kurtosis_lambda_rpc_api_consts"
@@ -57,7 +56,6 @@ func (executor KurtosisLambdaExecutor) Run() error {
 	apiClient := kurtosis_core_rpc_api_bindings.NewApiContainerServiceClient(conn)
 	networkCtx := networks.NewNetworkContext(
 		apiClient,
-		map[services.FilesArtifactID]string{},
 		kurtosis_lambda_docker_api.ExecutionVolumeMountpoint,
 	)
 
