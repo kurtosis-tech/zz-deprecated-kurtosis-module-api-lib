@@ -1,6 +1,7 @@
 # TBD
 ### Changes
 * Upgraded Kurtosis Client from 0.10.0 -> 0.11.0
+* Added Apache-2 license
 
 ### Breaking Changes
 * Upgraded Kurtosis Client from 0.10.0 -> 0.11.0
