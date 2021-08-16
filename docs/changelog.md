@@ -3,6 +3,9 @@
 * Upgraded Kurtosis Client from 0.10.0 -> 0.11.0
 * Added Apache-2 license
 
+### Features
+* Added a known Lambdas registry
+
 ### Breaking Changes
 * Upgraded Kurtosis Client from 0.10.0 -> 0.11.0
     * Users should follow the remediation steps in https://github.com/kurtosis-tech/kurtosis-client/blob/develop/docs/changelog.md#0110 
