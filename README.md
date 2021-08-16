@@ -24,7 +24,7 @@ More formally, a Lambda is:
 - A definition of the Kurtosis Lambda API
 - A client for communicating with that API
 - Scaffolding for building a Lambda
-- [A list of known Lambdas](
+- [A list of known Lambdas](./docs/lambda-registry.md)
 
 ### How do I write my own Lambda?
 For right now, an example Lambda is provided [here](https://github.com/kurtosis-tech/datastore-army-lambda). A more detailed tutorial will be available soon.
