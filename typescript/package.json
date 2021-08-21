@@ -1,0 +1,45 @@
+{
+    "name": "kurtosis-lambda-api-lib",
+    "version": "0.6.0",
+    "description": "This repo contains a Typescript library for writing a Kurtosis Lambda.",
+    "main": "./build/index",
+    "types": "./build/index",
+    "scripts": {
+        "build": "tsc && cp -R src/kurtosis_lambda_rpc_api_bindings build/",
+        "test": "ts-mocha -p tsconfig.json 'test/**/*.ts'"
+    },
+    "files": [
+        "build"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/kurtosis-tech/kurtosis-lambda-api-lib.git"
+    },
+    "keywords": [
+        "kurtosis",
+        "lambda"
+    ],
+    "author": "Kurtosis Technologies Inc <accounts@kurtosistech.com> (https://www.kurtosistech.com/)",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/kurtosis-tech/kurtosis-lambda-api-lib/issues"
+    },
+    "homepage": "https://github.com/kurtosis-tech/kurtosis-lambda-api-lib",
+    "engines": {
+        "node": "= 14.17.1"
+    },
+    "devDependencies": {
+        "@types/chai": "^4.2.21",
+        "@types/mocha": "^9.0.0",
+        "chain": "^0.1.3",
+        "mocha": "^9.1.0",
+        "ts-mocha": "^8.0.0",
+        "typescript": "^4.3.5"
+    },
+    "dependencies": {
+        "google-protobuf": "^3.18.0-rc.1",
+        "grpc": "^1.24.11",
+        "loglevel": "^1.7.1",
+        "neverthrow": "^4.2.2"
+    }
+}

@@ -2,6 +2,9 @@
 ### Changes
 * Correct for `minimal-grpc-server` module move
 
+### Features
+* Set up Typescript build infra
+
 # 0.6.0
 ### Changes
 * Upgraded Kurtosis Client from 0.10.0 -> 0.11.0
