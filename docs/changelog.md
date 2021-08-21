@@ -2,6 +2,7 @@
 ### Changes
 * Correct for `minimal-grpc-server` module move
 * Switch to docs-checker orb
+* Use the devtools version of the package-updating script
 
 ### Features
 * Set up Typescript build infra
