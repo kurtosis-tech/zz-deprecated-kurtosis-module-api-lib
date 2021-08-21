@@ -1,4 +1,7 @@
 # TBD
+### Changes
+* Correct for `minimal-grpc-server` module move
+
 ### Features
 * Set up Typescript build infra
 
