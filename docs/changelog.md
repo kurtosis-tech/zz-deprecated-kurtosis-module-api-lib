@@ -1,4 +1,6 @@
 # TBD
+### Changes
+* Correct for `minimal-grpc-server` module move
 
 # 0.6.0
 ### Changes

@@ -23,7 +23,7 @@ import (
 	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/kurtosis_lambda_docker_api"
 	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/kurtosis_lambda_rpc_api_bindings"
 	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/kurtosis_lambda_rpc_api_consts"
-	"github.com/kurtosis-tech/minimal-grpc-server/server"
+	"github.com/kurtosis-tech/minimal-grpc-server/golang/server"
 	"github.com/palantir/stacktrace"
 	"google.golang.org/grpc"
 	"os"
