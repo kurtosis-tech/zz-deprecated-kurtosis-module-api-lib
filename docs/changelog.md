@@ -1,6 +1,7 @@
 # TBD
 ### Changes
 * Correct for `minimal-grpc-server` module move
+* Switch to docs-checker orb
 
 ### Features
 * Set up Typescript build infra
