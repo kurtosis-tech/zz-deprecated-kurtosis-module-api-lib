@@ -1,0 +1,31 @@
+{
+    "name": "kurtosis-lambda-api-lib",
+    "version": "0.6.0",
+    "description": "This repo contains a Typescript library for writing writing a Kurtosis Lambda.",
+    "main": "./build/index",
+    "types": "./build/index",
+    "scripts": {
+        "build": "tsc && cp -R src/kurtosis_lambda_rpc_api_bindings build/",
+        "test": "ts-mocha -p tsconfig.json 'test/**/*.ts'"
+    },
+    "files": [
+        "build"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/kurtosis-tech/kurtosis-lambda-api-lib.git"
+    },
+    "keywords": [
+        "kurtosis",
+        "lambda"
+    ],
+    "author": "Kurtosis Technologies Inc <accounts@kurtosistech.com> (https://www.kurtosistech.com/)",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/kurtosis-tech/kurtosis-lambda-api-lib/issues"
+    },
+    "homepage": "https://github.com/kurtosis-tech/kurtosis-lambda-api-lib",
+    "engines": {
+        "node": "= 14.17.1"
+    }
+}
