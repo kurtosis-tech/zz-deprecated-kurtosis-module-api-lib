@@ -5,7 +5,7 @@ import { KurtosisLambda } from "../kurtosis_lambda/kurtosis_lambda";
 import { KurtosisLambdaConfigurator } from "./kurtosis_lambda_configurator";
 import * as grpc from 'grpc';
 import { ILambdaServiceServer, LambdaServiceService } from "../../kurtosis_lambda_rpc_api_bindings/api_lambda_service_grpc_pb";
-import { MinimalGRPCServer } from "minimal-grpc-server";
+import { MinimalGRPCServer, TypedServerOverride } from "minimal-grpc-server";
 import { LISTEN_PORT } from "../../kurtosis_lambda_rpc_api_consts/kurtosis_lambda_rpc_api_consts";
 
 const GRPC_SERVER_STOP_GRACE_PERIOD_SECONDS: number = 5;
@@ -45,9 +45,9 @@ export class KurtosisLambdaExecutor {
         // TODO
         const lambdaServiceServer: ILambdaServiceServer;
         // lambdaServiceServer := NewKurtosisLambdaServiceServer(lambda, networkCtx)
-        const serviceRegistrationFuncs: { (server: grpc.Server): void; }[] = [
-            (server: grpc.Server) => {
-                server.addService(LambdaServiceService, lambdaServiceServer);
+        const serviceRegistrationFuncs: { (server: TypedServerOverride): void; }[] = [
+            (server: TypedServerOverride) => {
+                server.addTypedService(LambdaServiceService, lambdaServiceServer);
             }
         ]
 
