@@ -1,4 +1,6 @@
 # TBD
+### Changes
+* Upgraded to Kurtosis Client 0.13.2, which contains a bunch of bugfixes surfaced by strict mode
 
 # 0.7.2
 ### Features
