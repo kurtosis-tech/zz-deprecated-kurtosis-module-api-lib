@@ -55,11 +55,11 @@ export class KurtosisLambdaServiceServer implements KnownKeysOnly<ILambdaService
                     executeResult.error
                 );
                 callback(serviceError, null);
-                return
+                return;
             }
 
             const responseJson: string = executeResult.value;
-            const executeResponse = newExecuteResponse(responseJson)
+            const executeResponse: ExecuteResponse = newExecuteResponse(responseJson);
 
             callback(null, executeResponse);
         })

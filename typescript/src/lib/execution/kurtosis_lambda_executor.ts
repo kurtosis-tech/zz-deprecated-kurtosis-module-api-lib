@@ -35,7 +35,7 @@ export class KurtosisLambdaExecutor {
         if (getApiContainerSocketResult.isErr()) {
             return err(getApiContainerSocketResult.error);
         }
-        const apiContainerSocket = getApiContainerSocketResult.value;
+        const apiContainerSocket: string = getApiContainerSocketResult.value;
 
         const apiClient: ApiContainerServiceClient = new ApiContainerServiceClient(apiContainerSocket, grpc.credentials.createInsecure());
         const networkCtx: NetworkContext = new NetworkContext(
@@ -51,7 +51,7 @@ export class KurtosisLambdaExecutor {
             (server: TypedServerOverride) => {
                 server.addTypedService(LambdaServiceService, lambdaServiceServer);
             }
-        ]
+        ];
 
         const lambdaServer: MinimalGRPCServer = new MinimalGRPCServer(
             LISTEN_PORT,
@@ -74,7 +74,7 @@ export class KurtosisLambdaExecutor {
             return err(new Error("Expected an '" + envVarName + "' environment variable containing '" + envVarDescription + "', but none was found"));
 
         }
-        const envVarValue = process.env[envVarName];
+        const envVarValue: string = process.env[envVarName];
         if (envVarValue === "") {
             return err(new Error("The '" + envVarName + "' environment variable was defined, but is emptystring"));
         }
