@@ -1,5 +1,9 @@
 # TBD
 
+# 0.7.4
+### Fixes
+* Use minimal-grpc-server 0.3.3, which unpins the Node engine version from `14.17.1`
+
 # 0.7.3
 ### Changes
 * Upgraded to Kurtosis Client 0.13.2, which contains a bunch of bugfixes surfaced by strict mode
