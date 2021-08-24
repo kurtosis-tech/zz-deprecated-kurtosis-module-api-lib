@@ -1,29 +1,10 @@
 import { ServerUnaryCall, sendUnaryData, ServiceError, Metadata, status, handleCall, Server, ServiceDefinition } from "grpc";
 import { NetworkContext } from "kurtosis-core-api-lib";
 import { KnownKeysOnly } from "minimal-grpc-server";
-import { Result } from "neverthrow";
 import { ILambdaServiceServer } from "../../kurtosis_lambda_rpc_api_bindings/api_lambda_service_grpc_pb";
 import { ExecuteArgs, ExecuteResponse } from "../../kurtosis_lambda_rpc_api_bindings/api_lambda_service_pb";
-import { newExecuteResponse } from "../consturctor_calls";
+import { newExecuteResponse } from "../constructor_calls";
 import { KurtosisLambda } from "../kurtosis_lambda/kurtosis_lambda";
-
-class KurtosisLambdaServiceError implements ServiceError {
-    readonly code?: status;
-    readonly metadata?: Metadata;
-    readonly details?: string;
-    readonly name: string;
-    readonly message: string;
-    readonly stack?: string;
-
-    constructor(code: status, from: Error) {
-        this.code = code;
-        this.metadata = null;
-        this.details = null;
-        this.name = from.name;
-        this.message = from.message;
-        this.stack = from.stack;
-    }
-}
 
 // The KnownKeysOnly thing is a workaround due to a silly gRPC requirement that your service implement
 //  UnimplementedServiceServer
@@ -50,11 +31,7 @@ export class KurtosisLambdaServiceServer implements KnownKeysOnly<ILambdaService
             args.getParamsJson()
         ).then(executeResult => {
             if (executeResult.isErr()) {
-                const serviceError: KurtosisLambdaServiceError = new KurtosisLambdaServiceError(
-                    status.INTERNAL,
-                    executeResult.error
-                );
-                callback(serviceError, null);
+                callback(executeResult.error, null);
                 return;
             }
 

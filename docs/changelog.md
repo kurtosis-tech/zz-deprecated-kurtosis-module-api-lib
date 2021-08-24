@@ -1,6 +1,7 @@
 # TBD
 ### Fixes
 * Unpin Typescript library Node engine version to be `>=14.17.0`
+* Typescript library was missing an `index.ts`
 
 # 0.7.0
 ### Changes
