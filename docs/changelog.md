@@ -6,6 +6,15 @@
 
 ### Features
 * Set up Typescript build infra
+* Add Typescript implementation
+
+### Fixes
+* Fixed hyphenated (rather than underscored) directory name in the Golang module, to follow Go naming conventions
+* Added docs links to all classes
+
+### Breaking Changes
+* Renamed `github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/lib/kurtosis-lambda` package -> `github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/lib/kurtosis_lambda`
+    * Users should rename the package
 
 # 0.6.0
 ### Changes

@@ -19,6 +19,7 @@ package kurtosis_lambda
 
 import "github.com/kurtosis-tech/kurtosis-client/golang/lib/networks"
 
+// Docs available at https://docs.kurtosistech.com/kurtosis-lambda-api-lib/lib-documentation
 type KurtosisLambda interface {
 	Execute(networkCtx *networks.NetworkContext, serializedParams string) (serializedResult string, resultError error)
 }

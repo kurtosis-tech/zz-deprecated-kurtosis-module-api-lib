@@ -18,9 +18,10 @@
 package execution
 
 import (
-	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/lib/kurtosis-lambda"
+	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/lib/kurtosis_lambda"
 )
 
+// Docs available at https://docs.kurtosistech.com/kurtosis-lambda-api-lib/lib-documentation
 type KurtosisLambdaConfigurator interface {
 	ParseParamsAndCreateKurtosisLambda(serializedCustomParamsStr string) (kurtosis_lambda.KurtosisLambda, error)
 }
