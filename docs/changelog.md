@@ -1,4 +1,6 @@
 # TBD
+
+# 0.7.0
 ### Changes
 * Correct for `minimal-grpc-server` module move
 * Switch to docs-checker orb
