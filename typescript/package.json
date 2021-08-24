@@ -26,7 +26,7 @@
     },
     "homepage": "https://github.com/kurtosis-tech/kurtosis-lambda-api-lib",
     "engines": {
-        "node": "= 14.17.1"
+        "node": ">=14.17.0"
     },
     "devDependencies": {
         "@types/chai": "^4.2.21",
