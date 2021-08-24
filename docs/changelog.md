@@ -1,4 +1,6 @@
 # TBD
+
+# 0.7.4
 ### Fixes
 * Use minimal-grpc-server 0.3.3, which unpins the Node engine version from `14.17.1`
 
