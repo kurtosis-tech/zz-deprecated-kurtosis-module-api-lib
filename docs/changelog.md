@@ -1,5 +1,10 @@
 # TBD
 
+# 0.7.1
+### Fixes
+* Unpin Typescript library Node engine version to be `>=14.17.0`
+* Typescript library was missing an `index.ts`
+
 # 0.7.0
 ### Changes
 * Correct for `minimal-grpc-server` module move

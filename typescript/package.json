@@ -1,6 +1,6 @@
 {
     "name": "kurtosis-lambda-api-lib",
-    "version": "0.7.0",
+    "version": "0.7.1",
     "description": "This repo contains a Typescript library for writing a Kurtosis Lambda.",
     "main": "./build/index",
     "types": "./build/index",
@@ -26,7 +26,7 @@
     },
     "homepage": "https://github.com/kurtosis-tech/kurtosis-lambda-api-lib",
     "engines": {
-        "node": "= 14.17.1"
+        "node": ">=14.17.0"
     },
     "devDependencies": {
         "@types/chai": "^4.2.21",
@@ -39,7 +39,7 @@
     "dependencies": {
         "google-protobuf": "^3.18.0-rc.1",
         "grpc": "^1.24.11",
-        "kurtosis-core-api-lib": "^0.13.0",
+        "kurtosis-core-api-lib": "^0.13.1",
         "loglevel": "^1.7.1",
         "minimal-grpc-server": "^0.3.1",
         "neverthrow": "^4.2.2"
