@@ -74,7 +74,7 @@ export class KurtosisLambdaExecutor {
             return err(new Error("Expected an '" + envVarName + "' environment variable containing '" + envVarDescription + "', but none was found"));
 
         }
-        const envVarValue: string = process.env[envVarName];
+        const envVarValue: string = process.env[envVarName]!;
         if (envVarValue === "") {
             return err(new Error("The '" + envVarName + "' environment variable was defined, but is emptystring"));
         }

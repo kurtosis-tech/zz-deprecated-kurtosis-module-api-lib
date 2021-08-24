@@ -1,4 +1,9 @@
 # TBD
+### Features
+* Turn on Typescript strict mode, for safer code
+
+### Fixes
+* Several bugs resulting from strict mode being enabled
 
 # 0.7.1
 ### Fixes
