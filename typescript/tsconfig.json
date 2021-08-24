@@ -3,7 +3,8 @@
         "module": "commonjs",
         "outDir": "build",
         "downlevelIteration": true,
-        "declaration": true
+        "declaration": true,
+        "strict": true
     },
     "include": [
         "src/**/*"
