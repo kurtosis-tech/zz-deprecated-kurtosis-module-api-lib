@@ -1,5 +1,12 @@
 # TBD
 
+# 0.7.2
+### Features
+* Turn on Typescript strict mode, for safer code
+
+### Fixes
+* Several bugs resulting from strict mode being enabled
+
 # 0.7.1
 ### Fixes
 * Unpin Typescript library Node engine version to be `>=14.17.0`
