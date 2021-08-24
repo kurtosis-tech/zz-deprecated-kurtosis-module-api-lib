@@ -21,7 +21,7 @@ import (
 	"context"
 	"github.com/kurtosis-tech/kurtosis-client/golang/lib/networks"
 	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/kurtosis_lambda_rpc_api_bindings"
-	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/lib/kurtosis-lambda"
+	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/lib/kurtosis_lambda"
 	"github.com/palantir/stacktrace"
 	"google.golang.org/protobuf/types/known/emptypb"
 )

@@ -1,32 +1,15 @@
 version: 2.1
 
+orbs:
+  npm-publisher: uraway/npm-publisher@0.2.0
+  kurtosis-docs-checker: kurtosis-tech/docs-checker@0.2.0
+
 # NOTE: Because CircleCI jobs run on separate machines from each other, we duplicate steps (like checkout) between jobs. This is because doing the "correct" DRY
 #  refactoring of, "one job for checkout, one job for build Docker image, etc." would require a) persisting files between jobs and b) persisting Docker images between
 #  jobs. Both are annoying (saving/loading workspaces require re-downloading the workspace over the network, and there doesn't seem to be a good way to do Docker
 #  images), so we run everything inside a single job.
 # See also: https://discuss.circleci.com/t/can-docker-images-be-preserved-between-jobs-in-a-workflow-without-a-manual-load-save/23388/12
 jobs:
-  check_docs:
-    docker:
-      # Needed for `npm install` down below
-      - image: cimg/node:15.3.0
-    resource_class: small
-    steps:
-      - checkout
-
-      # Gotchas I discovered when writing this:
-      # - Without the '--no-pager' flag, Git will print "WARNING: Terminal is not fully functional" and not display any output
-      # - Circle has no way of getting the PR base branch, so we have to hardcode develop :( See: https://ideas.circleci.com/cloud-feature-requests/p/provide-env-variable-for-branch-name-targeted-by-pull-request
-      # - The --exit-code flag to git-diff returns 0 on no changes, 1 on changes
-      # - We have to use 'origin/develop' rather than 'develop' because Circle does a shallow checkout, and 'develop' gets set to something weird and wrong that makes the check buggy
-      - run: "! git --no-pager diff --exit-code origin/develop...HEAD docs/changelog.md"
-
-      - run:
-          name: Check links in Markdown docs
-          command: |
-            sudo npm install -g markdown-link-check
-            bash .circleci/check-markdown-links.sh
-
   check_golang:
     docker:
       - image: cimg/go:1.15.13
@@ -42,17 +25,69 @@ jobs:
 
       - run: golang/scripts/build.sh
 
+  check_typescript:
+    docker:
+      - image: cimg/node:14.17.1
+    steps:
+      - checkout
+
+      # If the only changes are to the docs, don't run the slow (and expensive) code checks
+      # `git diff --exit-code` returns 0 exit code if no changes, and 1 if changes
+      - run: |
+          if git --no-pager diff --exit-code origin/develop...HEAD -- . ':!docs'; then
+            circleci-agent step halt
+          fi
+
+      - run: typescript/scripts/build.sh
+
+  publish_typescript:
+    docker:
+      - image: cimg/node:14.17.1
+    steps:
+      - checkout
+      - run: typescript/scripts/build.sh
+      - npm-publisher/publish-from-package-version:
+          package-path: typescript
+          publish-token-variable: NPMJS_AUTH_TOKEN
+
 workflows:
   build:
     jobs:
       # -- PR check jobs ------------------------------------------
+      - kurtosis-docs-checker/check-docs:
+          markdown-link-check-config-json: |
+            {
+                "replacementPatterns": [
+                    {
+                        "pattern": "^../kurtosis-core",
+                        "replacement": "https://docs.kurtosistech.com/kurtosis-core"
+                    },
+                    {
+                        "pattern": "^../kurtosis-libs",
+                        "replacement": "https://docs.kurtosistech.com/kurtosis-libs"
+                    },
+                    {
+                        "pattern": "^../kurtosis-testsuite-api-lib",
+                        "replacement": "https://docs.kurtosistech.com/kurtosis-testsuite-api-lib"
+                    },
+                    {
+                        "pattern": "^../kurtosis-client",
+                        "replacement": "https://docs.kurtosistech.com/kurtosis-client"
+                    }
+                ]
+            }
+          filters:
+            branches:
+              ignore:
+                - develop
+                - master
       - check_golang:
           filters:
             branches:
               ignore:
                 - develop
                 - master
-      - check_docs:
+      - check_typescript:
           filters:
             branches:
               ignore:
@@ -61,6 +96,13 @@ workflows:
       # -- End PR check jobs ---------------------------------------
 
       # -- Artifact-publishing jobs --------------------------------
-      # TODO Implement when we have a language that needs artifact-publishing
+      - publish_typescript:
+          context:
+            - npmjs-user
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
       # -- End artifact-publishing jobs ----------------------------
 

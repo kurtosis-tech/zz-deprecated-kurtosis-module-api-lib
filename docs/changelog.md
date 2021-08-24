@@ -1,5 +1,23 @@
 # TBD
 
+# 0.7.0
+### Changes
+* Correct for `minimal-grpc-server` module move
+* Switch to docs-checker orb
+* Use the devtools version of the package-updating script
+
+### Features
+* Set up Typescript build infra
+* Add Typescript implementation
+
+### Fixes
+* Fixed hyphenated (rather than underscored) directory name in the Golang module, to follow Go naming conventions
+* Added docs links to all classes
+
+### Breaking Changes
+* Renamed `github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/lib/kurtosis-lambda` package -> `github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/lib/kurtosis_lambda`
+    * Users should rename the package
+
 # 0.6.0
 ### Changes
 * Upgraded Kurtosis Client from 0.10.0 -> 0.11.0

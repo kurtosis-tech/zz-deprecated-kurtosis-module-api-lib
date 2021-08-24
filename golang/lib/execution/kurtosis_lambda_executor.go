@@ -23,7 +23,7 @@ import (
 	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/kurtosis_lambda_docker_api"
 	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/kurtosis_lambda_rpc_api_bindings"
 	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/kurtosis_lambda_rpc_api_consts"
-	"github.com/kurtosis-tech/minimal-grpc-server/server"
+	"github.com/kurtosis-tech/minimal-grpc-server/golang/server"
 	"github.com/palantir/stacktrace"
 	"google.golang.org/grpc"
 	"os"
@@ -101,7 +101,7 @@ func getEnvVar(envVarName string, envVarDescription string) (string, error) {
 		return "", stacktrace.NewError("Expected an '%v' environment variable containing '%v', but none was found", envVarName, envVarDescription)
 	}
 	if envVarValue == "" {
-		return "", stacktrace.NewError("The '%v' serialized custom params environment variable was defined, but is emptystring", envVarName)
+		return "", stacktrace.NewError("The '%v' environment variable was defined, but is emptystring", envVarName)
 	}
 
 	return envVarValue, nil
