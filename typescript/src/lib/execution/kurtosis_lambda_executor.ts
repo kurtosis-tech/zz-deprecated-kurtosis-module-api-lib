@@ -4,9 +4,10 @@ import { API_CONTAINER_SOCKET_ENV_VAR, EXECUTION_VOLUME_MOUNTPOINT, SERIALIZED_C
 import { KurtosisLambda } from "../kurtosis_lambda/kurtosis_lambda";
 import { KurtosisLambdaConfigurator } from "./kurtosis_lambda_configurator";
 import * as grpc from 'grpc';
-import { ILambdaServiceServer, LambdaServiceService } from "../../kurtosis_lambda_rpc_api_bindings/api_lambda_service_grpc_pb";
+import { LambdaServiceService } from "../../kurtosis_lambda_rpc_api_bindings/api_lambda_service_grpc_pb";
 import { MinimalGRPCServer, TypedServerOverride } from "minimal-grpc-server";
 import { LISTEN_PORT } from "../../kurtosis_lambda_rpc_api_consts/kurtosis_lambda_rpc_api_consts";
+import { KurtosisLambdaServiceServer } from "./kurtosis_lambda_service_server";
 
 const GRPC_SERVER_STOP_GRACE_PERIOD_SECONDS: number = 5;
 
@@ -28,6 +29,7 @@ export class KurtosisLambdaExecutor {
         if (createLambdaResult.isErr()) {
             return err(createLambdaResult.error);
         }
+        const lambda: KurtosisLambda = createLambdaResult.value;
 
         const getApiContainerSocketResult: Result<string, Error> = KurtosisLambdaExecutor.getEnvVar(API_CONTAINER_SOCKET_ENV_VAR, "the socket value used in API container connection");
         if (getApiContainerSocketResult.isErr()) {
@@ -35,16 +37,16 @@ export class KurtosisLambdaExecutor {
         }
         const apiContainerSocket = getApiContainerSocketResult.value;
 
-        // TODO Wrap in exception-handling???
         const apiClient: ApiContainerServiceClient = new ApiContainerServiceClient(apiContainerSocket, grpc.credentials.createInsecure());
         const networkCtx: NetworkContext = new NetworkContext(
             apiClient,
             EXECUTION_VOLUME_MOUNTPOINT
         );
 
-        // TODO
-        const lambdaServiceServer: ILambdaServiceServer;
-        // lambdaServiceServer := NewKurtosisLambdaServiceServer(lambda, networkCtx)
+        const lambdaServiceServer: KurtosisLambdaServiceServer = new KurtosisLambdaServiceServer(
+            lambda,
+            networkCtx
+        );
         const serviceRegistrationFuncs: { (server: TypedServerOverride): void; }[] = [
             (server: TypedServerOverride) => {
                 server.addTypedService(LambdaServiceService, lambdaServiceServer);
