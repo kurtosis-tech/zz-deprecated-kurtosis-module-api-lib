@@ -1,4 +1,6 @@
 # TBD
+
+# 0.7.2
 ### Features
 * Turn on Typescript strict mode, for safer code
 
