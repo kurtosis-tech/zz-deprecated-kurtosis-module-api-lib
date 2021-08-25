@@ -1,5 +1,9 @@
 # TBD
 
+# 0.7.6
+### Fixes
+* Use minimal-grpc-server 0.3.5, which fixes a bug with the bind URL
+
 # 0.7.5
 ### Fixes
 * Use minimal-grpc-server 0.3.4, which fixes a bug with starting the server
