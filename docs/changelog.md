@@ -1,5 +1,9 @@
 # TBD
 
+# 0.7.5
+### Fixes
+* Use minimal-grpc-server 0.3.4, which fixes a bug with starting the server
+
 # 0.7.4
 ### Fixes
 * Use minimal-grpc-server 0.3.3, which unpins the Node engine version from `14.17.1`
