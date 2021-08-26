@@ -42,7 +42,7 @@
         "grpc": "^1.24.11",
         "kurtosis-core-api-lib": "0.13.2",
         "loglevel": "^1.7.1",
-        "minimal-grpc-server": "0.3.5",
+        "minimal-grpc-server": "0.3.6",
         "neverthrow": "^4.2.2"
     }
 }
