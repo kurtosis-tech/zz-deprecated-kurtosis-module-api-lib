@@ -1,4 +1,6 @@
 # TBD
+### Fixes
+* Fixed a bug with return `null` instead of a `google_protobuf_empty_pb.Empty` object for Typescript `isAvailable` method
 
 # 0.7.6
 ### Fixes
