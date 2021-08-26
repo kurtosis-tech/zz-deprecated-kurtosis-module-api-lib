@@ -1,5 +1,9 @@
 # TBD
 
+# 0.7.7
+### Fixes
+* Fixed a bug with return `null` instead of a `google_protobuf_empty_pb.Empty` object for Typescript `isAvailable` method
+
 # 0.7.6
 ### Fixes
 * Use minimal-grpc-server 0.3.5, which fixes a bug with the bind URL
