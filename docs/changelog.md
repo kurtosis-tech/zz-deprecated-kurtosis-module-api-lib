@@ -1,5 +1,9 @@
 # TBD
 
+# 0.7.8
+### Changes
+* Upgraded Kurtosis Client from 0.13.2 -> 0.13.7
+
 # 0.7.7
 ### Fixes
 * Fixed a bug with return `null` instead of a `google_protobuf_empty_pb.Empty` object for Typescript `isAvailable` method
