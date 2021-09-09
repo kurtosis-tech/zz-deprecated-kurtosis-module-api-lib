@@ -5,6 +5,10 @@
 ### Breaking Changes
 * Upgrade to Kurt Client 0.15.0 (see break remediation [here](https://github.com/kurtosis-tech/kurtosis-client/blob/develop/docs/changelog.md))
 
+# 0.7.8
+### Changes
+* Upgraded Kurtosis Client from 0.13.2 -> 0.13.7
+
 # 0.7.7
 ### Fixes
 * Fixed a bug with return `null` instead of a `google_protobuf_empty_pb.Empty` object for Typescript `isAvailable` method
