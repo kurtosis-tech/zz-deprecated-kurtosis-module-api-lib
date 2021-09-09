@@ -1,4 +1,6 @@
 # TBD
+
+# 0.8.0
 ### Fixes
 * Upgraded to Kurt Client 0.15.0 to fix a typo in ContainerRunConfigBuilder
 
