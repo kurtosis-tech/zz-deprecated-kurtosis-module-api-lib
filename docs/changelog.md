@@ -1,4 +1,9 @@
 # TBD
+### Fixes
+* Upgraded to Kurt Client 0.15.0 to fix a typo in ContainerRunConfigBuilder
+
+### Breaking Changes
+* Upgrade to Kurt Client 0.15.0 (see break remediation [here](https://github.com/kurtosis-tech/kurtosis-client/blob/develop/docs/changelog.md))
 
 # 0.7.7
 ### Fixes
