@@ -1,4 +1,6 @@
 # TBD
+### Changes
+* Add [Ethereum Kurtosis Lambda](https://github.com/kurtosis-tech/ethereum-kurtosis-lambda/) in Kurtosis Lambda registry
 
 # 0.8.0
 ### Fixes
