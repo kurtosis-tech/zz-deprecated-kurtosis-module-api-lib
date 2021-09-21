@@ -1,4 +1,10 @@
 # TBD
+### Changes
+* Upgraded to `kurtosis-client` 0.16.0, which returns log output strings rather than bytes from `ServiceContext.execCommand`
+
+### Breaking Changes
+* `ServiceContext.execCommand` returns strings rather than bytes
+    * Users should switch to using the string directly, without decoding
 
 # 0.8.0
 ### Fixes
