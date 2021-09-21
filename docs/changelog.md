@@ -1,5 +1,14 @@
 # TBD
 
+# 0.9.0
+### Changes
+* Add [Ethereum Kurtosis Lambda](https://github.com/kurtosis-tech/ethereum-kurtosis-lambda/) in Kurtosis Lambda registry
+* Upgraded to `kurtosis-client` 0.16.0, which returns log output strings rather than bytes from `ServiceContext.execCommand`
+
+### Breaking Changes
+* `ServiceContext.execCommand` returns strings rather than bytes
+    * Users should switch to using the string directly, without decoding
+
 # 0.8.0
 ### Fixes
 * Upgraded to Kurt Client 0.15.0 to fix a typo in ContainerRunConfigBuilder
