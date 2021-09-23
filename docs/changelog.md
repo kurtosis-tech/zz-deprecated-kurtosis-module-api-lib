@@ -1,4 +1,6 @@
 # TBD
+### Removals
+* Removed Lambda registry (now lives in the official docs)
 
 # 0.9.0
 ### Changes
