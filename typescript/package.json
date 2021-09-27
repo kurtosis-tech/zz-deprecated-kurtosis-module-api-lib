@@ -40,7 +40,7 @@
     "dependencies": {
         "google-protobuf": "^3.18.0-rc.1",
         "grpc": "^1.24.11",
-        "kurtosis-core-api-lib": "0.16.0",
+        "kurtosis-core-api-lib": "0.17.1",
         "loglevel": "^1.7.1",
         "minimal-grpc-server": "0.3.6",
         "neverthrow": "^4.2.2"
