@@ -1,5 +1,12 @@
 # TBD
 
+# 0.9.1
+### Features
+* Upgraded Kurt client dependency to the latest version [Kurt Client API 0.17.1](https://github.com/kurtosis-tech/kurtosis-client/blob/develop/docs/changelog.md#0171)
+
+### Removals
+* Removed Lambda registry (now lives in the official docs)
+
 # 0.9.0
 ### Changes
 * Add [Ethereum Kurtosis Lambda](https://github.com/kurtosis-tech/ethereum-kurtosis-lambda/) in Kurtosis Lambda registry
