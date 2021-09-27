@@ -1,6 +1,6 @@
 {
     "name": "kurtosis-lambda-api-lib",
-    "version": "0.9.0",
+    "version": "0.9.1",
     "description": "This repo contains a Typescript library for writing a Kurtosis Lambda.",
     "main": "./build/index",
     "types": "./build/index",
