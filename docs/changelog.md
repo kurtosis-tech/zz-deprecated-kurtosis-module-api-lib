@@ -1,5 +1,9 @@
 # TBD
 
+# 0.9.2
+### Features
+* Upgraded to [Kurtosis Client 0.17.3](https://github.com/kurtosis-tech/kurtosis-client/blob/develop/docs/changelog.md#0173)
+
 # 0.9.1
 ### Features
 * Upgraded Kurt client dependency to the latest version [Kurt Client API 0.17.1](https://github.com/kurtosis-tech/kurtosis-client/blob/develop/docs/changelog.md#0171)
