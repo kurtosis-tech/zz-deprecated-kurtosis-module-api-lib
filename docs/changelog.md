@@ -1,4 +1,6 @@
 # TBD
+### Features
+* Upgraded to [Kurtosis Client 0.17.3](https://github.com/kurtosis-tech/kurtosis-client/blob/develop/docs/changelog.md#0173)
 
 # 0.9.1
 ### Features
