@@ -1,41 +1,47 @@
-Kurtosis Lambda API Lib Documentation
+Kurtosis Module API Lib Documentation
 =====================================
-This documentation describes all the necessary objects to configure, create and run a custom implementation of a Kurtosis Lambda.
+This documentation describes all the necessary objects to configure, create and run a custom Kurtosis module.
 
 
-Kurtosis Lambda
----------------
-This interface defines the behavior of a Kurtosis Lambda which is a way to package and make available preconfigured services that users can easily load and use in their Kurtosis tests.
+ExecutableKurtosisModule
+------------------------
+This interface defines the behavior of a Kurtosis module that responds to an "execute" command. It is intended for simple modules that only have one function.
 
 ### execute([NetworkContext][networkcontext] networkContext, String serializedParams) -\> (String serializedResult)
-This function executes the functionality contained inside this implementation of Kurtosis Lambda.
-It receives parameters, serialized in an implementation-specific format, and returns a response, also serialized in an implementation-specific format. The implementation of this method is in charge of deserializing, validating, and sanitizing the received parameters.
+This function executes the logic contained inside this module. It receives parameters, serialized in an implementation-specific format, and returns a response, also serialized in an implementation-specific format. The implementation of this method is in charge of deserializing, validating, and sanitizing the received parameters.
 
 **Args**
 
 * `networkContext`: The representation of the network, which is used to manipulate the network.
-* `serializedParams`: Serialized parameter data to control the behaviour of the Kurtosis Lambda.
+* `serializedParams`: Serialized parameter data to control the behaviour of the Kurtosis module.
 
 **Returns**
 
-* `serializedResult`: Serialized data containing the results of executing the Kurtosis Lambda function.
+* `serializedResult`: Serialized data containing the results of running the module's execute function.
 
 
-KurtosisLambdaConfigurator
+KurtosisModuleConfigurator
 --------------------------
-Object responsible for creating and configuring a custom implementation of a Kurtosis Lambda.
+Object responsible for creating and configuring a custom executable Kurtosis module.
 
-### parseParamsAndCreateKurtosisLambda(String serializedCustomParamsStr) -\> ([KurtosisLambda][kurtosislambda] kurtosisLambda)
-Creates and configures a Kurtosis Lambda configured with the given serialized custom params.
+### parseParamsAndCreateExecutableModule(String serializedCustomParamsStr) -\> ([ExecutableKurtosisModule][executablekurtosismodule] module)
+Creates and configures a Kurtosis module with an execute command, configured with the given serialized custom params.
 
 **Args**
 
-* `serializedCustomParamsStr`: Serialized data containing params to create and configure an implementation of a Kurtosis Lambda.
+* `serializedCustomParamsStr`: Serialized data containing params to create and configure an implementation of the [ExecutableKurtosisModule][executablekurtosismodule] interface.
 
 **Returns**
 
-* `kurtosisLambda`: The object that represents the implementation of a Kurtosis Lambda
+* `module`: An implementation of the [ExecutableKurtosisModule][executablekurtosismodule] interface representing a module that responds to an execute command.
 
+KurtosisModuleExecutor
+----------------------
+Executor which accepts a [KurtosisModuleConfigurator][kurtosismoduleconfigurator] as part of its constructor to create an [ExecutableKurtosisModule][executablekurtosismodule] and serve it over a gRPC server.
+
+### run()
+Runs the gRPC server exposing the functionality of the Kurtosis module created by the [KurtosisModuleConfigurator][kurtosismoduleconfigurator] passed in at construction time.
 
 [networkcontext]: ../kurtosis-client/lib-documentation#networkcontext
-[kurtosislambda]: #kurtosis-lambda
+[kurtosismoduleconfigurator]: #kurtosismoduleconfigurator
+[executablekurtosismodule]: #executablekurtosismodule

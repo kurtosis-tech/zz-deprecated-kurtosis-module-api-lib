@@ -15,11 +15,16 @@
  *
  */
 
-package kurtosis_lambda
+package kurtosis_module_docker_api
 
-import "github.com/kurtosis-tech/kurtosis-client/golang/lib/networks"
+const (
+	// IP:port of the Kurtosis API container
+	ApiContainerSocketEnvVar = "API_CONTAINER_SOCKET"
 
-// Docs available at https://docs.kurtosistech.com/kurtosis-lambda-api-lib/lib-documentation
-type KurtosisLambda interface {
-	Execute(networkCtx *networks.NetworkContext, serializedParams string) (serializedResult string, resultError error)
-}
+	// Arbitrary serialized data that the module can consume at startup to modify its behaviour
+	// Analogous to the "constructor"
+	SerializedCustomParamsEnvVar = "SERIALIZED_CUSTOM_PARAMS"
+
+	// Location on the module Docker container where the Kurtosis volume will be mounted
+	ExecutionVolumeMountpoint = "/kurtosis-execution-volume"
+)

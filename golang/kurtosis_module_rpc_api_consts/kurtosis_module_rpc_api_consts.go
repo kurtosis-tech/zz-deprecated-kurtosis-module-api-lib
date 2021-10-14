@@ -15,12 +15,12 @@
  *
  */
 
-package kurtosis_lambda_rpc_api_consts
+package kurtosis_module_rpc_api_consts
 
 const (
-	// Protocol that the Lambda API container listens on
+	// Protocol that the module container listens on
 	ListenProtocol = "tcp"
 
-	// The port that the Lambda API container listens on
+	// The port that the module container listens on
 	ListenPort = 1111
 )

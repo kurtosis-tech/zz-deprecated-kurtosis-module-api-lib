@@ -15,13 +15,11 @@
  *
  */
 
-package execution
+package kurtosis_modules
 
-import (
-	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/lib/kurtosis_lambda"
-)
+import "github.com/kurtosis-tech/kurtosis-client/golang/lib/networks"
 
-// Docs available at https://docs.kurtosistech.com/kurtosis-lambda-api-lib/lib-documentation
-type KurtosisLambdaConfigurator interface {
-	ParseParamsAndCreateKurtosisLambda(serializedCustomParamsStr string) (kurtosis_lambda.KurtosisLambda, error)
+// Docs available at https://docs.kurtosistech.com/kurtosis-module-api-lib/lib-documentation
+type ExecutableKurtosisModule interface {
+	Execute(networkCtx *networks.NetworkContext, serializedParams string) (serializedResult string, resultError error)
 }
