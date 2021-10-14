@@ -2,6 +2,9 @@
 ### Fixes
 * Upgrade to [Kurtosis Client 0.18.0](https://github.com/kurtosis-tech/kurtosis-client/blob/develop/docs/changelog.md#0180), which fixes Typescript `SharedPath.GetChildPath` being accidentally uppercased
 
+### Breaking Changes
+* Typescript `SharedPath.GetChildPath` renamed to `SharedPath.getChildPath`
+
 # 0.9.2
 ### Features
 * Upgraded to [Kurtosis Client 0.17.3](https://github.com/kurtosis-tech/kurtosis-client/blob/develop/docs/changelog.md#0173)
