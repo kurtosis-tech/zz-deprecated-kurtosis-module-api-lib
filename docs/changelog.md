@@ -1,4 +1,6 @@
 # TBD
+
+# 0.10.0
 ### Features
 * Added documentation for the `KurtosisModuleExecutor` class
 
