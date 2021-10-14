@@ -29,11 +29,11 @@ Creates and configures a Kurtosis module with an execute command, configured wit
 
 **Args**
 
-* `serializedCustomParamsStr`: Serialized data containing params to create and configure an implementation of the [ExecutableKurtosisModule][executablekurtosismodule] interface
+* `serializedCustomParamsStr`: Serialized data containing params to create and configure an implementation of the [ExecutableKurtosisModule][executablekurtosismodule] interface.
 
 **Returns**
 
-* `module`: An implementation of the [ExecutableKurtosisModule][executablekurtosismodule] interface representing a module that responds to an execute command
+* `module`: An implementation of the [ExecutableKurtosisModule][executablekurtosismodule] interface representing a module that responds to an execute command.
 
 KurtosisModuleExecutor
 ----------------------
