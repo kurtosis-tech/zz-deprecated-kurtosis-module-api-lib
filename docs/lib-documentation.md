@@ -20,8 +20,8 @@ This function executes the logic contained inside this module. It receives param
 * `serializedResult`: Serialized data containing the results of running the module's execute function.
 
 
-ExecutableKurtosisModuleConfigurator
-------------------------------------
+KurtosisModuleConfigurator
+--------------------------
 Object responsible for creating and configuring a custom executable Kurtosis module.
 
 ### parseParamsAndCreateExecutableModule(String serializedCustomParamsStr) -\> ([ExecutableKurtosisModule][executablekurtosismodule] module)
@@ -35,6 +35,13 @@ Creates and configures a Kurtosis module with an execute command, configured wit
 
 * `module`: An implementation of the [ExecutableKurtosisModule][executablekurtosismodule] interface representing a module that responds to an execute command
 
+KurtosisModuleExecutor
+----------------------
+Executor which accepts a [KurtosisModuleConfigurator][kurtosismoduleconfigurator] as part of its constructor to create an [ExecutableKurtosisModule][executablekurtosismodule] and serve it over a gRPC server.
+
+### run()
+Runs the gRPC server exposing the functionality of the Kurtosis module created by the [KurtosisModuleConfigurator][kurtosismoduleconfigurator] passed in at construction time.
 
 [networkcontext]: ../kurtosis-client/lib-documentation#networkcontext
+[kurtosismoduleconfigurator]: #kurtosismoduleconfigurator
 [executablekurtosismodule]: #executablekurtosismodule

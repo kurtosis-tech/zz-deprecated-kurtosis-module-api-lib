@@ -15,16 +15,13 @@
  *
  */
 
-package kurtosis_lambda_docker_api
+package execution
 
-const (
-	// IP:port of the Kurtosis API container
-	ApiContainerSocketEnvVar = "API_CONTAINER_SOCKET"
-
-	// Arbitrary serialized data that the Lambda can consume at startup to modify its behaviour
-	// Analogous to the "constructor"
-	SerializedCustomParamsEnvVar = "SERIALIZED_CUSTOM_PARAMS"
-
-	// Location on the Lambda Docker container where the Kurtosis volume will be mounted
-	ExecutionVolumeMountpoint = "/kurtosis-execution-volume"
+import (
+	"github.com/kurtosis-tech/kurtosis-module-api-lib/golang/lib/kurtosis_modules"
 )
+
+// Docs available at https://docs.kurtosistech.com/kurtosis-module-api-lib/lib-documentation
+type KurtosisModuleConfigurator interface {
+	ParseParamsAndCreateExecutableModule(serializedCustomParamsStr string) (kurtosis_modules.ExecutableKurtosisModule, error)
+}

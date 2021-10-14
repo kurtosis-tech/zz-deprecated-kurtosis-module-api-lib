@@ -20,10 +20,10 @@ package execution
 import (
 	"github.com/kurtosis-tech/kurtosis-client/golang/kurtosis_core_rpc_api_bindings"
 	"github.com/kurtosis-tech/kurtosis-client/golang/lib/networks"
-	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/kurtosis_lambda_docker_api"
-	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/kurtosis_lambda_rpc_api_bindings"
-	"github.com/kurtosis-tech/kurtosis-lambda-api-lib/golang/kurtosis_lambda_rpc_api_consts"
-	"github.com/kurtosis-tech/minimal-grpc-server/golang/server"
+	"github.com/kurtosis-tech/kurtosis-module-api-lib/golang/kurtosis_module_docker_api"
+	"github.com/kurtosis-tech/kurtosis-module-api-lib/golang/kurtosis_module_rpc_api_bindings"
+	"github.com/kurtosis-tech/kurtosis-module-api-lib/golang/kurtosis_module_rpc_api_consts"
+	grpc_server "github.com/kurtosis-tech/minimal-grpc-server/golang/server"
 	"github.com/palantir/stacktrace"
 	"google.golang.org/grpc"
 	"os"
@@ -34,27 +34,29 @@ const (
 	grpcServerStopGracePeriod = 5 * time.Second
 )
 
-type KurtosisLambdaExecutor struct {
-	configurator KurtosisLambdaConfigurator
+// Docs available at https://docs.kurtosistech.com/kurtosis-module-api-lib/lib-documentation
+type KurtosisModuleExecutor struct {
+	configurator KurtosisModuleConfigurator
 }
 
-func NewKurtosisLambdaExecutor(configurator KurtosisLambdaConfigurator) *KurtosisLambdaExecutor {
-	return &KurtosisLambdaExecutor{configurator: configurator}
+func NewKurtosisModuleExecutor(configurator KurtosisModuleConfigurator) *KurtosisModuleExecutor {
+	return &KurtosisModuleExecutor{configurator: configurator}
 }
 
-func (executor KurtosisLambdaExecutor) Run() error {
+// Docs available at https://docs.kurtosistech.com/kurtosis-module-api-lib/lib-documentation
+func (executor KurtosisModuleExecutor) Run() error {
 
-	serializedCustomParams, err := getEnvVar(kurtosis_lambda_docker_api.SerializedCustomParamsEnvVar, "the serialized custom params that the Lambda will consume")
+	serializedCustomParams, err := getEnvVar(kurtosis_module_docker_api.SerializedCustomParamsEnvVar, "the serialized custom params that the module will consume")
 	if err != nil {
 		return stacktrace.Propagate(err, "An error occurred when trying to get the serialized custom params environment variable")
 	}
 
-	lambda, err := executor.configurator.ParseParamsAndCreateKurtosisLambda(serializedCustomParams)
+	module, err := executor.configurator.ParseParamsAndCreateExecutableModule(serializedCustomParams)
 	if err != nil {
-		return stacktrace.Propagate(err, "An error occurred parsing the serialized custom params and creating the Lambda")
+		return stacktrace.Propagate(err, "An error occurred parsing the serialized custom params and creating the module")
 	}
 
-	apiContainerSocket, err := getEnvVar(kurtosis_lambda_docker_api.ApiContainerSocketEnvVar, "the socket value used in API container connection")
+	apiContainerSocket, err := getEnvVar(kurtosis_module_docker_api.ApiContainerSocketEnvVar, "the socket value used in API container connection")
     if err != nil {
 		return stacktrace.Propagate(err, "An error occurred when trying to get the API container socket environment variable")
 	}
@@ -68,24 +70,24 @@ func (executor KurtosisLambdaExecutor) Run() error {
 	apiClient := kurtosis_core_rpc_api_bindings.NewApiContainerServiceClient(conn)
 	networkCtx := networks.NewNetworkContext(
 		apiClient,
-		kurtosis_lambda_docker_api.ExecutionVolumeMountpoint,
+		kurtosis_module_docker_api.ExecutionVolumeMountpoint,
 	)
 
-	lambdaServiceServer := NewKurtosisLambdaServiceServer(lambda, networkCtx)
-	lambdaServiceRegistrationFunc := func(grpcServer *grpc.Server) {
-		kurtosis_lambda_rpc_api_bindings.RegisterLambdaServiceServer(grpcServer, lambdaServiceServer)
+	serviceImpl := newExecutableModuleServiceImpl(module, networkCtx)
+	serviceImplRegistrationFunc := func(grpcServer *grpc.Server) {
+		kurtosis_module_rpc_api_bindings.RegisterExecutableModuleServiceServer(grpcServer, serviceImpl)
 	}
 
-	lambdaServer := server.NewMinimalGRPCServer(
-		kurtosis_lambda_rpc_api_consts.ListenPort,
-		kurtosis_lambda_rpc_api_consts.ListenProtocol,
+	grpcServer := grpc_server.NewMinimalGRPCServer(
+		kurtosis_module_rpc_api_consts.ListenPort,
+		kurtosis_module_rpc_api_consts.ListenProtocol,
 		grpcServerStopGracePeriod,
 		[]func(desc *grpc.Server){
-			lambdaServiceRegistrationFunc,
+			serviceImplRegistrationFunc,
 		},
 	)
-	if err := lambdaServer.Run(); err != nil {
-		return stacktrace.Propagate(err, "An error occurred running the Lambda server")
+	if err := grpcServer.Run(); err != nil {
+		return stacktrace.Propagate(err, "An error occurred running the module GRPC server")
 	}
 
 	return nil
