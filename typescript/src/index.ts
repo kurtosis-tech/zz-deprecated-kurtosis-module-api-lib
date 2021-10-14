@@ -1,3 +1,3 @@
-export { KurtosisLambda } from "./lib/kurtosis_lambda/kurtosis_lambda";
-export { KurtosisLambdaConfigurator } from "./lib/execution/kurtosis_lambda_configurator";
-export { KurtosisLambdaExecutor } from "./lib/execution/kurtosis_lambda_executor";
+export { ExecutableKurtosisModule } from "./lib/kurtosis_modules/executable_kurtosis_modules";
+export { KurtosisModuleConfigurator } from "./lib/execution/kurtosis_module_configurator";
+export { KurtosisModuleExecutor } from "./lib/execution/kurtosis_module_executor";

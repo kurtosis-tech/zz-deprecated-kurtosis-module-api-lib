@@ -1,5 +1,5 @@
-// package: kurtosis_lambda_rpc_api_service
-// file: api_lambda_service.proto
+// package: kurtosis_module_rpc_api_service
+// file: executable_module_service.proto
 
 import * as jspb from "google-protobuf";
 import * as google_protobuf_empty_pb from "google-protobuf/google/protobuf/empty_pb";

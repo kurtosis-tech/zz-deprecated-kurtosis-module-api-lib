@@ -1,5 +1,31 @@
 # TBD
 
+# 0.10.0
+### Features
+* Added documentation for the `KurtosisModuleExecutor` class
+
+### Fixes
+* Upgrade to [Kurtosis Client 0.19.0](https://github.com/kurtosis-tech/kurtosis-client/blob/develop/docs/changelog.md#0190), which fixes Typescript `SharedPath.GetChildPath` being accidentally uppercased
+
+### Changes
+* All "Lambda" instances in the API have been renamed to "module"
+
+### Removals
+* Actually remove the Lambda registry Markdown doc, which should have been done in 0.9.0
+
+### Breaking Changes
+* This repo's Go module has been renamed to `github.com/kurtosis-tech/kurtosis-module-api-lib/golang`
+    * Uses should update their imports accordingly
+* This repo's NPM module has been renamed to `kurtosis-module-api-lib`
+* Typescript `SharedPath.GetChildPath` renamed to `SharedPath.getChildPath`
+* The Kurtosis Client API has received significant updates from "Lambda" to "module"
+    * Users should follow the remediation steps outlined [here](https://github.com/kurtosis-tech/kurtosis-client/blob/develop/docs/changelog.md#0190)
+* Several classes & functions were renamed, and users should modify their code appropriately:
+    * `KurtosisLambda` was renamed to `ExecutableKurtosisModule`
+    * `KurtosisLambdaExecutor` was renamed to `KurtosisModuleExecutor`
+    * `KurtosisLambdaConfigurator` was renamed to `KurtosisModuleConfigurator`
+        * The `parseParamsAndCreateLambda` function was renamed `parseParamsAndCreateExecutableModule`
+
 # 0.9.2
 ### Features
 * Upgraded to [Kurtosis Client 0.17.3](https://github.com/kurtosis-tech/kurtosis-client/blob/develop/docs/changelog.md#0173)
