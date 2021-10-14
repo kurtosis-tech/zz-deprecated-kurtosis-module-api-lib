@@ -1,37 +1,39 @@
 import { ApiContainerServiceClient, NetworkContext } from "kurtosis-core-api-lib";
 import { err, ok, Result } from "neverthrow";
-import { API_CONTAINER_SOCKET_ENV_VAR, EXECUTION_VOLUME_MOUNTPOINT, SERIALIZED_CUSTOM_PARAMS_ENV_VAR } from "../../kurtosis_lambda_docker_api/kurtosis_lambda_docker_api";
-import { KurtosisLambda } from "../kurtosis_lambda/kurtosis_lambda";
-import { KurtosisLambdaConfigurator } from "./kurtosis_lambda_configurator";
+import { API_CONTAINER_SOCKET_ENV_VAR, EXECUTION_VOLUME_MOUNTPOINT, SERIALIZED_CUSTOM_PARAMS_ENV_VAR } from "../../kurtosis_module_docker_api/kurtosis_module_docker_api";
+import { ExecutableKurtosisModule } from "../kurtosis_modules/executable_kurtosis_modules";
+import { KurtosisModuleConfigurator } from "./kurtosis_module_configurator";
 import * as grpc from 'grpc';
-import { LambdaServiceService } from "../../kurtosis_lambda_rpc_api_bindings/api_lambda_service_grpc_pb";
 import { MinimalGRPCServer, TypedServerOverride } from "minimal-grpc-server";
-import { LISTEN_PORT } from "../../kurtosis_lambda_rpc_api_consts/kurtosis_lambda_rpc_api_consts";
-import { KurtosisLambdaServiceServer } from "./kurtosis_lambda_service_server";
+import { LISTEN_PORT } from "../../kurtosis_module_rpc_api_consts/kurtosis_module_rpc_api_consts";
+import { ExecutableModuleServiceImpl } from "./executable_module_service_impl";
+import { ExecutableModuleServiceService } from "../../kurtosis_module_rpc_api_bindings/executable_module_service_grpc_pb";
 
 const GRPC_SERVER_STOP_GRACE_PERIOD_SECONDS: number = 5;
 
-export class KurtosisLambdaExecutor {
-    private readonly configurator: KurtosisLambdaConfigurator;
+// Docs available at https://docs.kurtosistech.com/kurtosis-module-api-lib/lib-documentation
+export class KurtosisModuleExecutor {
+    private readonly configurator: KurtosisModuleConfigurator;
 
-    constructor(configurator: KurtosisLambdaConfigurator) {
+    constructor(configurator: KurtosisModuleConfigurator) {
         this.configurator = configurator;
     }
 
-    async run(): Promise<Result<null, Error>> {
-        const getSerializedCustomParamsResult: Result<string, Error> = KurtosisLambdaExecutor.getEnvVar(SERIALIZED_CUSTOM_PARAMS_ENV_VAR, "the serialized custom params that the Lambda will consume");
+    // Docs available at https://docs.kurtosistech.com/kurtosis-module-api-lib/lib-documentation
+    public async run(): Promise<Result<null, Error>> {
+        const getSerializedCustomParamsResult: Result<string, Error> = KurtosisModuleExecutor.getEnvVar(SERIALIZED_CUSTOM_PARAMS_ENV_VAR, "the serialized custom params that the module will consume");
         if (getSerializedCustomParamsResult.isErr()) {
             return err(getSerializedCustomParamsResult.error);
         }
         const serializedCustomParams: string = getSerializedCustomParamsResult.value;
 
-        const createLambdaResult: Result<KurtosisLambda, Error> = this.configurator.parseParamsAndCreateKurtosisLambda(serializedCustomParams);
-        if (createLambdaResult.isErr()) {
-            return err(createLambdaResult.error);
+        const createModuleResult: Result<ExecutableKurtosisModule, Error> = this.configurator.parseParamsAndCreateExecutableModule(serializedCustomParams);
+        if (createModuleResult.isErr()) {
+            return err(createModuleResult.error);
         }
-        const lambda: KurtosisLambda = createLambdaResult.value;
+        const module: ExecutableKurtosisModule = createModuleResult.value;
 
-        const getApiContainerSocketResult: Result<string, Error> = KurtosisLambdaExecutor.getEnvVar(API_CONTAINER_SOCKET_ENV_VAR, "the socket value used in API container connection");
+        const getApiContainerSocketResult: Result<string, Error> = KurtosisModuleExecutor.getEnvVar(API_CONTAINER_SOCKET_ENV_VAR, "the socket value used in API container connection");
         if (getApiContainerSocketResult.isErr()) {
             return err(getApiContainerSocketResult.error);
         }
@@ -43,22 +45,22 @@ export class KurtosisLambdaExecutor {
             EXECUTION_VOLUME_MOUNTPOINT
         );
 
-        const lambdaServiceServer: KurtosisLambdaServiceServer = new KurtosisLambdaServiceServer(
-            lambda,
+        const serviceImpl: ExecutableModuleServiceImpl = new ExecutableModuleServiceImpl(
+            module,
             networkCtx
         );
-        const serviceRegistrationFuncs: { (server: TypedServerOverride): void; }[] = [
+        const serviceImplRegistrationFunc: { (server: TypedServerOverride): void; }[] = [
             (server: TypedServerOverride) => {
-                server.addTypedService(LambdaServiceService, lambdaServiceServer);
+                server.addTypedService(ExecutableModuleServiceService, serviceImpl);
             }
         ];
 
-        const lambdaServer: MinimalGRPCServer = new MinimalGRPCServer(
+        const grpcServer: MinimalGRPCServer = new MinimalGRPCServer(
             LISTEN_PORT,
             GRPC_SERVER_STOP_GRACE_PERIOD_SECONDS,
-            serviceRegistrationFuncs
+            serviceImplRegistrationFunc
         );
-        const runResult: Result<null, Error> = await lambdaServer.run();
+        const runResult: Result<null, Error> = await grpcServer.run();
         if (runResult.isErr()) {
             return err(runResult.error);
         }

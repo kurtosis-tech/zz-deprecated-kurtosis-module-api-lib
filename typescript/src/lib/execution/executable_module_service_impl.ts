@@ -1,23 +1,23 @@
 import { ServerUnaryCall, sendUnaryData, ServiceError, Metadata, status, handleCall, Server, ServiceDefinition, GoogleOAuth2Client } from "grpc";
 import { NetworkContext } from "kurtosis-core-api-lib";
 import { KnownKeysOnly } from "minimal-grpc-server";
-import { ILambdaServiceServer } from "../../kurtosis_lambda_rpc_api_bindings/api_lambda_service_grpc_pb";
-import { ExecuteArgs, ExecuteResponse } from "../../kurtosis_lambda_rpc_api_bindings/api_lambda_service_pb";
 import { newExecuteResponse } from "../constructor_calls";
-import { KurtosisLambda } from "../kurtosis_lambda/kurtosis_lambda";
+import { ExecutableKurtosisModule } from "../kurtosis_modules/executable_kurtosis_modules";
 import * as google_protobuf_empty_pb from "google-protobuf/google/protobuf/empty_pb";
+import { IExecutableModuleServiceServer } from "../../kurtosis_module_rpc_api_bindings/executable_module_service_grpc_pb";
+import { ExecuteArgs, ExecuteResponse } from "../../kurtosis_module_rpc_api_bindings/executable_module_service_pb";
 
 // The KnownKeysOnly thing is a workaround due to a silly gRPC requirement that your service implement
 //  UnimplementedServiceServer
-export class KurtosisLambdaServiceServer implements KnownKeysOnly<ILambdaServiceServer> {
-    private readonly kurtosisLambda: KurtosisLambda;
+export class ExecutableModuleServiceImpl implements KnownKeysOnly<IExecutableModuleServiceServer> {
+    private readonly module: ExecutableKurtosisModule;
     private readonly networkCtx: NetworkContext;
 
     constructor(
-        kurtosisLambda: KurtosisLambda,
+        module: ExecutableKurtosisModule,
         networkCtx: NetworkContext
     ) {
-        this.kurtosisLambda = kurtosisLambda;
+        this.module = module;
         this.networkCtx = networkCtx;
     }
 
@@ -27,7 +27,7 @@ export class KurtosisLambdaServiceServer implements KnownKeysOnly<ILambdaService
 
     public execute(call: ServerUnaryCall<ExecuteArgs>, callback: sendUnaryData<ExecuteResponse>): void {
         const args: ExecuteArgs = call.request;
-        this.kurtosisLambda.execute(
+        this.module.execute(
             this.networkCtx, 
             args.getParamsJson()
         ).then(executeResult => {
