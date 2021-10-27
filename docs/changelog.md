@@ -1,4 +1,6 @@
 # TBD
+
+# 0.11.0
 ### Changes
 * The execution volume mountpoint constants have been renamed to reflect the new bind-mounting strategy
 
