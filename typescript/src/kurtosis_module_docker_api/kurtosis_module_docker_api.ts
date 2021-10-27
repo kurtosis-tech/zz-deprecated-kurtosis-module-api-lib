@@ -5,5 +5,5 @@ export const API_CONTAINER_SOCKET_ENV_VAR: string = "API_CONTAINER_SOCKET";
 // Analogous to the "constructor"
 export const SERIALIZED_CUSTOM_PARAMS_ENV_VAR: string = "SERIALIZED_CUSTOM_PARAMS";
 
-// Location on the module Docker container where the Kurtosis volume will be mounted
-export const EXECUTION_VOLUME_MOUNTPOINT: string = "/kurtosis-execution-volume";
+// Location on the module Docker container where the Kurtosis enclave data directory will be bind-mounted
+export const ENCLAVE_DATA_DIR_MOUNTPOINT: string = "/kurtosis-enclave-data"

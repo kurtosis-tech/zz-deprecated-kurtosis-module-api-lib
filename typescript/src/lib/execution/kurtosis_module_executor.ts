@@ -1,6 +1,6 @@
 import { ApiContainerServiceClient, NetworkContext } from "kurtosis-core-api-lib";
 import { err, ok, Result } from "neverthrow";
-import { API_CONTAINER_SOCKET_ENV_VAR, EXECUTION_VOLUME_MOUNTPOINT, SERIALIZED_CUSTOM_PARAMS_ENV_VAR } from "../../kurtosis_module_docker_api/kurtosis_module_docker_api";
+import { API_CONTAINER_SOCKET_ENV_VAR, ENCLAVE_DATA_DIR_MOUNTPOINT, SERIALIZED_CUSTOM_PARAMS_ENV_VAR } from "../../kurtosis_module_docker_api/kurtosis_module_docker_api";
 import { ExecutableKurtosisModule } from "../kurtosis_modules/executable_kurtosis_modules";
 import { KurtosisModuleConfigurator } from "./kurtosis_module_configurator";
 import * as grpc from 'grpc';
@@ -42,7 +42,7 @@ export class KurtosisModuleExecutor {
         const apiClient: ApiContainerServiceClient = new ApiContainerServiceClient(apiContainerSocket, grpc.credentials.createInsecure());
         const networkCtx: NetworkContext = new NetworkContext(
             apiClient,
-            EXECUTION_VOLUME_MOUNTPOINT
+            ENCLAVE_DATA_DIR_MOUNTPOINT,
         );
 
         const serviceImpl: ExecutableModuleServiceImpl = new ExecutableModuleServiceImpl(
