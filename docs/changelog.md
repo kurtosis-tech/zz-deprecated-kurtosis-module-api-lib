@@ -1,4 +1,6 @@
 # TBD
+### Changes
+* Upgraded to Kurt Client 0.20.0, which is compatible with new bind-mount style enclave data dirs
 
 # 0.11.0
 ### Changes
