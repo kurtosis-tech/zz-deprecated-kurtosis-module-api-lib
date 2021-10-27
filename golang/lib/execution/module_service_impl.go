@@ -15,16 +15,6 @@
  *
  */
 
-package kurtosis_module_docker_api
+package execution
 
-const (
-	// IP:port of the Kurtosis API container
-	ApiContainerSocketEnvVar = "API_CONTAINER_SOCKET"
-
-	// Arbitrary serialized data that the module can consume at startup to modify its behaviour
-	// Analogous to the "constructor"
-	SerializedCustomParamsEnvVar = "SERIALIZED_CUSTOM_PARAMS"
-
-	// Location on the module Docker container where the Kurtosis enclave data directory will be bind-mounted
-	EnclaveDataDirMountpoint = "/kurtosis-enclave-data"
-)
+type moduleServiceImpl struct {}

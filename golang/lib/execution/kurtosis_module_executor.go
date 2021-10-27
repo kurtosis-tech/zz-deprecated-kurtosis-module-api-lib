@@ -70,7 +70,7 @@ func (executor KurtosisModuleExecutor) Run() error {
 	apiClient := kurtosis_core_rpc_api_bindings.NewApiContainerServiceClient(conn)
 	networkCtx := networks.NewNetworkContext(
 		apiClient,
-		kurtosis_module_docker_api.ExecutionVolumeMountpoint,
+		kurtosis_module_docker_api.EnclaveDataDirMountpoint,
 	)
 
 	serviceImpl := newExecutableModuleServiceImpl(module, networkCtx)

@@ -1,4 +1,10 @@
 # TBD
+### Changes
+* The execution volume mountpoint constants have been renamed to reflect the new bind-mounting strategy
+
+### Breaking Changes
+* Renamed the `ExecutionVolumeMountpoint` constant to `EnclaveDataDirMountpoint` to reflect the new bind-mounting strategy
+    * Users should rename their Golang & Typescript constants appropriately
 
 # 0.10.0
 ### Features
