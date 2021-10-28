@@ -42,6 +42,6 @@ Executor which accepts a [KurtosisModuleConfigurator][kurtosismoduleconfigurator
 ### run()
 Runs the gRPC server exposing the functionality of the Kurtosis module created by the [KurtosisModuleConfigurator][kurtosismoduleconfigurator] passed in at construction time.
 
-[networkcontext]: ../kurtosis-client/lib-documentation#networkcontext
+[networkcontext]: ../kurtosis-engine-api-lib/lib-documentation#networkcontext
 [kurtosismoduleconfigurator]: #kurtosismoduleconfigurator
 [executablekurtosismodule]: #executablekurtosismodule
