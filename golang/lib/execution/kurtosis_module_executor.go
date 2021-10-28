@@ -24,7 +24,7 @@ import (
 	"github.com/kurtosis-tech/kurtosis-module-api-lib/golang/kurtosis_module_rpc_api_bindings"
 	"github.com/kurtosis-tech/kurtosis-module-api-lib/golang/kurtosis_module_rpc_api_consts"
 	grpc_server "github.com/kurtosis-tech/minimal-grpc-server/golang/server"
-	"github.com/palantir/stacktrace"
+	"github.com/kurtosis-tech/stacktrace"
 	"google.golang.org/grpc"
 	"os"
 	"time"

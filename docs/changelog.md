@@ -2,6 +2,9 @@
 ### Changes
 * Replaced API container connections & references with engine server
 
+### Fixes
+* `stacktrace.Propagate` now panics on nil input error
+
 ### Breaking Changes
 * The [Kurtosis Client dependency](https://github.com/kurtosis-tech/kurtosis-client) has been replaced with a [Kurtosis Engine API Lib](https://github.com/kurtosis-tech/kurtosis-engine-api-lib) dependency
     * Users will need to update their import statements
