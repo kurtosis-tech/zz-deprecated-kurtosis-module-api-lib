@@ -18,8 +18,8 @@
 package execution
 
 import (
-	"github.com/kurtosis-tech/kurtosis-client/golang/kurtosis_core_rpc_api_bindings"
-	"github.com/kurtosis-tech/kurtosis-client/golang/lib/networks"
+	"github.com/kurtosis-tech/kurtosis-engine-api-lib/golang/kurtosis_engine_rpc_api_bindings"
+	"github.com/kurtosis-tech/kurtosis-engine-api-lib/golang/lib/networks"
 	"github.com/kurtosis-tech/kurtosis-module-api-lib/golang/kurtosis_module_docker_api"
 	"github.com/kurtosis-tech/kurtosis-module-api-lib/golang/kurtosis_module_rpc_api_bindings"
 	"github.com/kurtosis-tech/kurtosis-module-api-lib/golang/kurtosis_module_rpc_api_consts"
@@ -56,18 +56,18 @@ func (executor KurtosisModuleExecutor) Run() error {
 		return stacktrace.Propagate(err, "An error occurred parsing the serialized custom params and creating the module")
 	}
 
-	apiContainerSocket, err := getEnvVar(kurtosis_module_docker_api.ApiContainerSocketEnvVar, "the socket value used in API container connection")
+	engineSocket, err := getEnvVar(kurtosis_module_docker_api.EngineSocketEnvVar, "the socket value used in connecting to the Kurtosis engine")
     if err != nil {
-		return stacktrace.Propagate(err, "An error occurred when trying to get the API container socket environment variable")
+		return stacktrace.Propagate(err, "An error occurred when trying to get the Kurtosis engine socket environment variable")
 	}
 
 	// TODO SECURITY: Use HTTPS to verify we're hitting the correct API container
-	conn, err := grpc.Dial(apiContainerSocket, grpc.WithInsecure())
+	conn, err := grpc.Dial(engineSocket, grpc.WithInsecure())
 	if err != nil {
-		return stacktrace.Propagate(err, "An error occurred dialling the API container at '%v'", apiContainerSocket)
+		return stacktrace.Propagate(err, "An error occurred dialling the Kurtosis engine at '%v'", engineSocket)
 	}
 
-	apiClient := kurtosis_core_rpc_api_bindings.NewApiContainerServiceClient(conn)
+	apiClient := kurtosis_engine_rpc_api_bindings.NewEngineServiceClient(conn)
 	networkCtx := networks.NewNetworkContext(
 		apiClient,
 		kurtosis_module_docker_api.EnclaveDataDirMountpoint,

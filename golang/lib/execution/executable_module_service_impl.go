@@ -19,7 +19,7 @@ package execution
 
 import (
 	"context"
-	"github.com/kurtosis-tech/kurtosis-client/golang/lib/networks"
+	"github.com/kurtosis-tech/kurtosis-engine-api-lib/golang/lib/networks"
 	"github.com/kurtosis-tech/kurtosis-module-api-lib/golang/kurtosis_module_rpc_api_bindings"
 	"github.com/kurtosis-tech/kurtosis-module-api-lib/golang/lib/kurtosis_modules"
 	"github.com/palantir/stacktrace"

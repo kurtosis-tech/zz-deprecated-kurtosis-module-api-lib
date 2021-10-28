@@ -1,4 +1,11 @@
 # TBD
+### Changes
+* Replaced API container connections & references with engine server
+
+### Breaking Changes
+* The [Kurtosis Client dependency](https://github.com/kurtosis-tech/kurtosis-client) has been replaced with a [Kurtosis Engine API Lib](https://github.com/kurtosis-tech/kurtosis-engine-api-lib) dependency
+    * Users will need to update their import statements
+* The `ApiContainerSocketEnvVar` variable has been renamed `EngineUrlEnvVar`
 
 # 0.11.1
 ### Changes
