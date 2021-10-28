@@ -43,7 +43,7 @@
         "kurtosis-core-api-lib": "0.20.0",
         "kurtosis-engine-api-lib": "0.8.2",
         "loglevel": "^1.7.1",
-        "minimal-grpc-server": "0.3.6",
+        "minimal-grpc-server": "0.3.8",
         "neverthrow": "^4.2.2"
     }
 }
