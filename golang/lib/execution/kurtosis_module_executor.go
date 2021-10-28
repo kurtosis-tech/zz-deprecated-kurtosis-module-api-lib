@@ -61,6 +61,11 @@ func (executor KurtosisModuleExecutor) Run() error {
 		return stacktrace.Propagate(err, "An error occurred when trying to get the Kurtosis engine socket environment variable")
 	}
 
+	enclaveId, err := getEnvVar(kurtosis_module_docker_api.EnclaveIDEnvVar, "the ID of the enclave that the module is executing in")
+	if err != nil {
+		return stacktrace.Propagate(err, "An error occurred when trying to get the enclave ID environment variable")
+	}
+
 	// TODO SECURITY: Use HTTPS to verify we're hitting the correct API container
 	conn, err := grpc.Dial(engineSocket, grpc.WithInsecure())
 	if err != nil {
@@ -70,6 +75,7 @@ func (executor KurtosisModuleExecutor) Run() error {
 	apiClient := kurtosis_engine_rpc_api_bindings.NewEngineServiceClient(conn)
 	networkCtx := networks.NewNetworkContext(
 		apiClient,
+		enclaveId,
 		kurtosis_module_docker_api.EnclaveDataDirMountpoint,
 	)
 

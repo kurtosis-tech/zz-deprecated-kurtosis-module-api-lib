@@ -21,6 +21,9 @@ const (
 	// IP:port of the Kurtosis engine server
 	EngineSocketEnvVar = "ENGINE_SOCKET"
 
+	// ID of the enclave that the module is executing inside
+	EnclaveIDEnvVar = "ENCLAVE_ID"
+
 	// Arbitrary serialized data that the module can consume at startup to modify its behaviour
 	// Analogous to the "constructor"
 	SerializedCustomParamsEnvVar = "SERIALIZED_CUSTOM_PARAMS"
