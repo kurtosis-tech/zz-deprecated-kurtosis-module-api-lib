@@ -560,6 +560,16 @@ kurtosis-core-api-lib@0.20.0:
     loglevel "^1.7.1"
     neverthrow "^4.2.2"
 
+kurtosis-engine-api-lib@0.8.2:
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/kurtosis-engine-api-lib/-/kurtosis-engine-api-lib-0.8.2.tgz#5e250ae2154f23886bafe3d20ed0589ea20d35af"
+  integrity sha512-NaTBXh4wnHss4EBC8BybxZ0jbTnBQPt3lii6N84tqwol4s/WtX3967HqMUT1gu26/8zxIoWCct6Heb6BvDL5gA==
+  dependencies:
+    google-protobuf "^3.17.3"
+    grpc "^1.24.11"
+    loglevel "^1.7.1"
+    neverthrow "^4.2.2"
+
 lcid@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/lcid/-/lcid-1.0.0.tgz#308accafa0bc483a3867b4b6f2b9506251d1b835"
