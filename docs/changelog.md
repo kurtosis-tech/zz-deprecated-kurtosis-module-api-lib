@@ -1,4 +1,8 @@
 # TBD
+### Changes
+* Switch to using `@grpc/grpc-js` as the `grpc` package is deprecated, upgrading the following dependencies to support this:
+    * `kurtosis-core-api-lib` -> 1.36.7
+    * `minimal-grpc-server` -> 0.6.0
 
 # 0.12.1
 ### Fixes
