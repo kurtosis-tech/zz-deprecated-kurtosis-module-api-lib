@@ -1,4 +1,6 @@
 # TBD
+### Fixes
+* The `package.json` now correctly declares a requirement on Node >= 16.13.0
 
 # 0.12.0
 ### Features

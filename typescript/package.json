@@ -26,7 +26,7 @@
     },
     "homepage": "https://github.com/kurtosis-tech/kurtosis-module-api-lib",
     "engines": {
-        "node": ">=14.17.0"
+        "node": ">=16.13.0"
     },
     "devDependencies": {
         "@types/chai": "^4.2.21",
