@@ -50,6 +50,7 @@ func (executor KurtosisModuleExecutor) Run() error {
 	serializedCustomParams := args.SerializedCustomParams
 	enclaveId := enclaves.EnclaveID(args.EnclaveID)
 	listenPortNum := args.ListenPortNum
+	enclaveDataDirMountpoint := args.EnclaveDataDirMountpoint;
 
 	module, err := executor.configurator.ParseParamsAndCreateExecutableModule(serializedCustomParams)
 	if err != nil {
@@ -66,7 +67,7 @@ func (executor KurtosisModuleExecutor) Run() error {
 	enclaveCtx := enclaves.NewEnclaveContext(
 		apiClient,
 		enclaveId,
-		args.EnclaveDataDirMountpoint,
+		enclaveDataDirMountpoint,
 	)
 
 	serviceImpl := newExecutableModuleServiceImpl(module, enclaveCtx)

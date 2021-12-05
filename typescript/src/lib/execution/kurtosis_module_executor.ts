@@ -1,29 +1,32 @@
-import { ApiContainerServiceClient } from "kurtosis-core-api-lib";
+import { ApiContainerServiceClient, EnclaveContext, getArgsFromEnv } from "kurtosis-core-api-lib";
 import { err, ok, Result } from "neverthrow";
-import { API_CONTAINER_SOCKET_ENV_VAR, ENCLAVE_DATA_DIR_MOUNTPOINT, SERIALIZED_CUSTOM_PARAMS_ENV_VAR } from "../../kurtosis_module_docker_api/kurtosis_module_docker_api";
 import { ExecutableKurtosisModule } from "../kurtosis_modules/executable_kurtosis_modules";
 import { KurtosisModuleConfigurator } from "./kurtosis_module_configurator";
 import * as grpc from 'grpc';
 import { MinimalGRPCServer, TypedServerOverride } from "minimal-grpc-server";
 import { ExecutableModuleServiceImpl } from "./executable_module_service_impl";
+import { ExecutableModuleServiceService } from "kurtosis-core-api-lib/build/kurtosis_core_rpc_api_bindings/executable_module_service_grpc_pb";
 
 const GRPC_SERVER_STOP_GRACE_PERIOD_SECONDS: number = 5;
 
 // Docs available at https://docs.kurtosistech.com/kurtosis-module-api-lib/lib-documentation
 export class KurtosisModuleExecutor {
-    private readonly configurator: KurtosisModuleConfigurator;
-
-    constructor(configurator: KurtosisModuleConfigurator) {
-        this.configurator = configurator;
-    }
+    constructor(
+        private readonly configurator: KurtosisModuleConfigurator,
+    ) {}
 
     // Docs available at https://docs.kurtosistech.com/kurtosis-module-api-lib/lib-documentation
     public async run(): Promise<Result<null, Error>> {
-        const getSerializedCustomParamsResult: Result<string, Error> = KurtosisModuleExecutor.getEnvVar(SERIALIZED_CUSTOM_PARAMS_ENV_VAR, "the serialized custom params that the module will consume");
-        if (getSerializedCustomParamsResult.isErr()) {
-            return err(getSerializedCustomParamsResult.error);
+        const getArgsResult = getArgsFromEnv();
+        if (getArgsResult.isErr()) {
+            return err(new Error(`An error occurred getting the module container args from the environment`));
         }
-        const serializedCustomParams: string = getSerializedCustomParamsResult.value;
+        const args = getArgsResult.value;
+        const apiContainerSocket = args.apiContainerSocket;
+        const serializedCustomParams = args.serializedCustomParams;
+        const enclaveId = args.enclaveId;
+        const listenPortNum = args.listenPortNum;
+        const enclaveDataDirMountpoint = args.enclaveDataDirMountpoint;
 
         const createModuleResult: Result<ExecutableKurtosisModule, Error> = this.configurator.parseParamsAndCreateExecutableModule(serializedCustomParams);
         if (createModuleResult.isErr()) {
@@ -31,21 +34,17 @@ export class KurtosisModuleExecutor {
         }
         const module: ExecutableKurtosisModule = createModuleResult.value;
 
-        const getApiContainerSocketResult: Result<string, Error> = KurtosisModuleExecutor.getEnvVar(API_CONTAINER_SOCKET_ENV_VAR, "the socket value used in API container connection");
-        if (getApiContainerSocketResult.isErr()) {
-            return err(getApiContainerSocketResult.error);
-        }
-        const apiContainerSocket: string = getApiContainerSocketResult.value;
-
+        // TODO SECURITY: Use HTTPS to verify we're hitting the correct API container
         const apiClient: ApiContainerServiceClient = new ApiContainerServiceClient(apiContainerSocket, grpc.credentials.createInsecure());
-        const networkCtx: NetworkContext = new NetworkContext(
+        const enclaveCtx: EnclaveContext = new EnclaveContext(
             apiClient,
-            ENCLAVE_DATA_DIR_MOUNTPOINT,
+            enclaveId,
+            enclaveDataDirMountpoint,
         );
 
         const serviceImpl: ExecutableModuleServiceImpl = new ExecutableModuleServiceImpl(
             module,
-            networkCtx
+            enclaveCtx
         );
         const serviceImplRegistrationFunc: { (server: TypedServerOverride): void; }[] = [
             (server: TypedServerOverride) => {
@@ -54,31 +53,15 @@ export class KurtosisModuleExecutor {
         ];
 
         const grpcServer: MinimalGRPCServer = new MinimalGRPCServer(
-            LISTEN_PORT,
+            listenPortNum,
             GRPC_SERVER_STOP_GRACE_PERIOD_SECONDS,
             serviceImplRegistrationFunc
         );
-        const runResult: Result<null, Error> = await grpcServer.run();
+        const runResult: Result<null, Error> = await grpcServer.runUntilInterrupted();
         if (runResult.isErr()) {
             return err(runResult.error);
         }
 
         return ok(null);
-    }
-
-    // ====================================================================================================
-    //                                       Private helper functions
-    // ====================================================================================================
-    private static getEnvVar(envVarName: string, envVarDescription: string): Result<string, Error> {
-        if (!(SERIALIZED_CUSTOM_PARAMS_ENV_VAR in process.env)) {
-            return err(new Error("Expected an '" + envVarName + "' environment variable containing '" + envVarDescription + "', but none was found"));
-
-        }
-        const envVarValue: string = process.env[envVarName]!;
-        if (envVarValue === "") {
-            return err(new Error("The '" + envVarName + "' environment variable was defined, but is emptystring"));
-        }
-
-        return ok(envVarValue);
     }
 }
