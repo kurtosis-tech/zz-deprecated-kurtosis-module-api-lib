@@ -18,8 +18,8 @@
 package execution
 
 import (
-	"github.com/kurtosis-tech/kurtosis-client/golang/kurtosis_core_rpc_api_bindings"
-	"github.com/kurtosis-tech/kurtosis-client/golang/lib/networks"
+	"github.com/kurtosis-tech/kurtosis-core-api-lib/api/golang/kurtosis_core_rpc_api_bindings"
+	"github.com/kurtosis-tech/kurtosis-core-api-lib/api/golang/lib/networks"
 	"github.com/kurtosis-tech/kurtosis-module-api-lib/golang/kurtosis_module_docker_api"
 	"github.com/kurtosis-tech/kurtosis-module-api-lib/golang/kurtosis_module_rpc_api_bindings"
 	"github.com/kurtosis-tech/kurtosis-module-api-lib/golang/kurtosis_module_rpc_api_consts"

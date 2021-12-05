@@ -17,7 +17,7 @@
 
 package kurtosis_modules
 
-import "github.com/kurtosis-tech/kurtosis-client/golang/lib/networks"
+import "github.com/kurtosis-tech/kurtosis-core-api-lib/api/golang/lib/networks"
 
 // Docs available at https://docs.kurtosistech.com/kurtosis-module-api-lib/lib-documentation
 type ExecutableKurtosisModule interface {
