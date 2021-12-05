@@ -19,14 +19,12 @@ package execution
 
 import (
 	"github.com/kurtosis-tech/kurtosis-core-api-lib/api/golang/kurtosis_core_rpc_api_bindings"
-	"github.com/kurtosis-tech/kurtosis-core-api-lib/api/golang/lib/networks"
-	"github.com/kurtosis-tech/kurtosis-module-api-lib/golang/kurtosis_module_docker_api"
+	"github.com/kurtosis-tech/kurtosis-core-api-lib/api/golang/lib/enclaves"
+	"github.com/kurtosis-tech/kurtosis-core-api-lib/api/golang/module_launch_api"
 	"github.com/kurtosis-tech/kurtosis-module-api-lib/golang/kurtosis_module_rpc_api_bindings"
-	"github.com/kurtosis-tech/kurtosis-module-api-lib/golang/kurtosis_module_rpc_api_consts"
 	grpc_server "github.com/kurtosis-tech/minimal-grpc-server/golang/server"
 	"github.com/kurtosis-tech/stacktrace"
 	"google.golang.org/grpc"
-	"os"
 	"time"
 )
 
@@ -45,20 +43,18 @@ func NewKurtosisModuleExecutor(configurator KurtosisModuleConfigurator) *Kurtosi
 
 // Docs available at https://docs.kurtosistech.com/kurtosis-module-api-lib/lib-documentation
 func (executor KurtosisModuleExecutor) Run() error {
-
-	serializedCustomParams, err := getEnvVar(kurtosis_module_docker_api.SerializedCustomParamsEnvVar, "the serialized custom params that the module will consume")
+	args, err := module_launch_api.GetArgsFromEnv()
 	if err != nil {
-		return stacktrace.Propagate(err, "An error occurred when trying to get the serialized custom params environment variable")
+		return stacktrace.Propagate(err, "An error occurred getting the module container args from the environment")
 	}
+	apiContainerSocket := args.ApiContainerSocket
+	serializedCustomParams := args.SerializedCustomParams
+	enclaveId := enclaves.EnclaveID(args.EnclaveID)
+	listenPortNum := args.ListenPortNum
 
 	module, err := executor.configurator.ParseParamsAndCreateExecutableModule(serializedCustomParams)
 	if err != nil {
-		return stacktrace.Propagate(err, "An error occurred parsing the serialized custom params and creating the module")
-	}
-
-	apiContainerSocket, err := getEnvVar(kurtosis_module_docker_api.ApiContainerSocketEnvVar, "the socket value used in API container connection")
-    if err != nil {
-		return stacktrace.Propagate(err, "An error occurred when trying to get the API container socket environment variable")
+		return stacktrace.Propagate(err, "An error occurred creating the module using serialized custom params '%v'", serializedCustomParams)
 	}
 
 	// TODO SECURITY: Use HTTPS to verify we're hitting the correct API container
@@ -68,43 +64,27 @@ func (executor KurtosisModuleExecutor) Run() error {
 	}
 
 	apiClient := kurtosis_core_rpc_api_bindings.NewApiContainerServiceClient(conn)
-	networkCtx := networks.NewNetworkContext(
+	enclaveCtx := enclaves.NewEnclaveContext(
 		apiClient,
-		kurtosis_module_docker_api.EnclaveDataDirMountpoint,
+		enclaveId,
+		args.EnclaveDataDirMountpoint,
 	)
 
-	serviceImpl := newExecutableModuleServiceImpl(module, networkCtx)
+	serviceImpl := newExecutableModuleServiceImpl(module, enclaveCtx)
 	serviceImplRegistrationFunc := func(grpcServer *grpc.Server) {
 		kurtosis_module_rpc_api_bindings.RegisterExecutableModuleServiceServer(grpcServer, serviceImpl)
 	}
 
 	grpcServer := grpc_server.NewMinimalGRPCServer(
-		kurtosis_module_rpc_api_consts.ListenPort,
-		kurtosis_module_rpc_api_consts.ListenProtocol,
+		listenPortNum,
 		grpcServerStopGracePeriod,
 		[]func(desc *grpc.Server){
 			serviceImplRegistrationFunc,
 		},
 	)
-	if err := grpcServer.Run(); err != nil {
+	if err := grpcServer.RunUntilInterrupted(); err != nil {
 		return stacktrace.Propagate(err, "An error occurred running the module GRPC server")
 	}
 
 	return nil
-}
-
-// ====================================================================================================
-//                                       Private helper functions
-// ====================================================================================================
-func getEnvVar(envVarName string, envVarDescription string) (string, error) {
-	envVarValue, found := os.LookupEnv(envVarName)
-
-	if !found {
-		return "", stacktrace.NewError("Expected an '%v' environment variable containing '%v', but none was found", envVarName, envVarDescription)
-	}
-	if envVarValue == "" {
-		return "", stacktrace.NewError("The '%v' environment variable was defined, but is emptystring", envVarName)
-	}
-
-	return envVarValue, nil
 }

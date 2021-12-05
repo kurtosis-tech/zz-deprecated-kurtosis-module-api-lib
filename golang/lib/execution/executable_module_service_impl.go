@@ -19,7 +19,7 @@ package execution
 
 import (
 	"context"
-	"github.com/kurtosis-tech/kurtosis-core-api-lib/api/golang/lib/networks"
+	"github.com/kurtosis-tech/kurtosis-core-api-lib/api/golang/lib/enclaves"
 	"github.com/kurtosis-tech/kurtosis-module-api-lib/golang/kurtosis_module_rpc_api_bindings"
 	"github.com/kurtosis-tech/kurtosis-module-api-lib/golang/lib/kurtosis_modules"
 	"github.com/kurtosis-tech/stacktrace"
@@ -30,16 +30,16 @@ type executableModuleServiceImpl struct {
 	// This embedding is required by gRPC
 	kurtosis_module_rpc_api_bindings.UnimplementedExecutableModuleServiceServer
 	module     kurtosis_modules.ExecutableKurtosisModule
-	networkCtx *networks.NetworkContext
+	enclaveCtx *enclaves.EnclaveContext
 }
 
 func newExecutableModuleServiceImpl(
 	module kurtosis_modules.ExecutableKurtosisModule,
-	networkCtx *networks.NetworkContext,
+	enclaveCtx *enclaves.EnclaveContext,
 ) *executableModuleServiceImpl {
 	return &executableModuleServiceImpl{
-		module: module,
-		networkCtx: networkCtx,
+		module:     module,
+		enclaveCtx: enclaveCtx,
 	}
 }
 
@@ -48,7 +48,7 @@ func (server *executableModuleServiceImpl) IsAvailable(ctx context.Context, empt
 }
 
 func (server *executableModuleServiceImpl) Execute(ctx context.Context, args *kurtosis_module_rpc_api_bindings.ExecuteArgs) (*kurtosis_module_rpc_api_bindings.ExecuteResponse, error) {
-	result, err := server.module.Execute(server.networkCtx, args.ParamsJson)
+	result, err := server.module.Execute(server.enclaveCtx, args.ParamsJson)
 	if err != nil {
 		return nil, stacktrace.Propagate(err, "An error occurred executing the module")
 	}
