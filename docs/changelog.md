@@ -1,6 +1,10 @@
 # TBD
 ### Features
 * Upgraded to `minimal-grpc-server` 0.5.0
+* Added a root `scripts/build.sh` to build all languages
+
+### Changes
+* Replaced the old `kurtosis-client` with `kurtosis-core-api-lib`
 
 ### Fixes
 * A `nil` value passed to `stacktrace.Propagate` now panics
