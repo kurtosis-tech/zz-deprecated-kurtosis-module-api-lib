@@ -1,4 +1,6 @@
 # TBD
+
+# 0.12.0
 ### Features
 * Upgraded to `minimal-grpc-server` 0.5.0
 * Added a root `scripts/build.sh` to build all languages
