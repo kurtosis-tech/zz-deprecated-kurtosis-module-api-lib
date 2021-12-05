@@ -1,4 +1,6 @@
 # TBD
+### Fixes
+* Upgrade to core-api-lib 1.36.8, to try and fix an issue where the Protobuf "empty" type isn't getting propagated
 
 # 0.12.2
 ### Changes
