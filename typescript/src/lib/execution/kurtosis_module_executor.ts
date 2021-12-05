@@ -1,13 +1,11 @@
-import { ApiContainerServiceClient, NetworkContext } from "kurtosis-core-api-lib";
+import { ApiContainerServiceClient } from "kurtosis-core-api-lib";
 import { err, ok, Result } from "neverthrow";
 import { API_CONTAINER_SOCKET_ENV_VAR, ENCLAVE_DATA_DIR_MOUNTPOINT, SERIALIZED_CUSTOM_PARAMS_ENV_VAR } from "../../kurtosis_module_docker_api/kurtosis_module_docker_api";
 import { ExecutableKurtosisModule } from "../kurtosis_modules/executable_kurtosis_modules";
 import { KurtosisModuleConfigurator } from "./kurtosis_module_configurator";
 import * as grpc from 'grpc';
 import { MinimalGRPCServer, TypedServerOverride } from "minimal-grpc-server";
-import { LISTEN_PORT } from "../../kurtosis_module_rpc_api_consts/kurtosis_module_rpc_api_consts";
 import { ExecutableModuleServiceImpl } from "./executable_module_service_impl";
-import { ExecutableModuleServiceService } from "../../kurtosis_module_rpc_api_bindings/executable_module_service_grpc_pb";
 
 const GRPC_SERVER_STOP_GRACE_PERIOD_SECONDS: number = 5;
 
