@@ -1,4 +1,6 @@
 # TBD
+### Features
+* Upgraded to `minimal-grpc-server` 0.5.0
 
 # 0.11.1
 ### Changes
