@@ -2,6 +2,7 @@
 ### Features
 * Upgraded to `minimal-grpc-server` 0.5.0
 * Added a root `scripts/build.sh` to build all languages
+* Added test to ensure that a new Kurt Core version with an API break will remind the user to add a breaking change in this library's changelog
 
 ### Changes
 * Replaced the old `kurtosis-client` with `kurtosis-core-api-lib`
