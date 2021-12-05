@@ -2,6 +2,9 @@
 ### Features
 * Upgraded to `minimal-grpc-server` 0.5.0
 
+### Fixes
+* A `nil` value passed to `stacktrace.Propagate` now panics
+
 # 0.11.1
 ### Changes
 * Upgraded to Kurt Client 0.20.0, which is compatible with new bind-mount style enclave data dirs
