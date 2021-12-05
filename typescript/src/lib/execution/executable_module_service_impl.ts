@@ -1,4 +1,4 @@
-import { ServerUnaryCall, sendUnaryData } from "grpc";
+import * as grpc from "@grpc/grpc-js";
 import { EnclaveContext, ExecuteArgs, ExecuteResponse, IExecutableModuleServiceServer } from "kurtosis-core-api-lib";
 import { KnownKeysOnly } from "minimal-grpc-server";
 import { newExecuteResponse } from "../constructor_calls";
@@ -13,11 +13,11 @@ export class ExecutableModuleServiceImpl implements KnownKeysOnly<IExecutableMod
         private readonly enclaveCtx: EnclaveContext,
     ) {}
 
-    public isAvailable(call: ServerUnaryCall<google_protobuf_empty_pb.Empty>, callback: sendUnaryData<google_protobuf_empty_pb.Empty>): void {
+    public isAvailable(call: grpc.ServerUnaryCall<google_protobuf_empty_pb.Empty, google_protobuf_empty_pb.Empty>, callback: grpc.sendUnaryData<google_protobuf_empty_pb.Empty>): void {
         callback(null, new google_protobuf_empty_pb.Empty());
     }
 
-    public execute(call: ServerUnaryCall<ExecuteArgs>, callback: sendUnaryData<ExecuteResponse>): void {
+    public execute(call: grpc.ServerUnaryCall<ExecuteArgs, ExecuteResponse>, callback: grpc.sendUnaryData<ExecuteResponse>): void {
         const args: ExecuteArgs = call.request;
         this.module.execute(
             this.enclaveCtx, 
