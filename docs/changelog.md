@@ -1,5 +1,9 @@
 # TBD
 
+# 0.12.1
+### Fixes
+* The `package.json` now correctly declares a requirement on Node >= 16.13.0
+
 # 0.12.0
 ### Features
 * Upgraded to `minimal-grpc-server` 0.5.0
