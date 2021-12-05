@@ -7,12 +7,12 @@ ExecutableKurtosisModule
 ------------------------
 This interface defines the behavior of a Kurtosis module that responds to an "execute" command. It is intended for simple modules that only have one function.
 
-### execute([NetworkContext][networkcontext] networkContext, String serializedParams) -\> (String serializedResult)
+### execute([EnclaveContext][enclavecontext] enclaveContext, String serializedParams) -\> (String serializedResult)
 This function executes the logic contained inside this module. It receives parameters, serialized in an implementation-specific format, and returns a response, also serialized in an implementation-specific format. The implementation of this method is in charge of deserializing, validating, and sanitizing the received parameters.
 
 **Args**
 
-* `networkContext`: The representation of the network, which is used to manipulate the network.
+* `enclaveContext`: The representation of the Kurtosis enclave, which is used for adding services, removing services, etc.
 * `serializedParams`: Serialized parameter data to control the behaviour of the Kurtosis module.
 
 **Returns**
@@ -42,6 +42,6 @@ Executor which accepts a [KurtosisModuleConfigurator][kurtosismoduleconfigurator
 ### run()
 Runs the gRPC server exposing the functionality of the Kurtosis module created by the [KurtosisModuleConfigurator][kurtosismoduleconfigurator] passed in at construction time.
 
-[networkcontext]: ../kurtosis-client/lib-documentation#networkcontext
+[enclavecontext]: ../kurtosis-core/lib-documentation#enclavecontext
 [kurtosismoduleconfigurator]: #kurtosismoduleconfigurator
 [executablekurtosismodule]: #executablekurtosismodule

@@ -17,9 +17,9 @@
 
 package kurtosis_modules
 
-import "github.com/kurtosis-tech/kurtosis-client/golang/lib/networks"
+import "github.com/kurtosis-tech/kurtosis-core-api-lib/api/golang/lib/enclaves"
 
 // Docs available at https://docs.kurtosistech.com/kurtosis-module-api-lib/lib-documentation
 type ExecutableKurtosisModule interface {
-	Execute(networkCtx *networks.NetworkContext, serializedParams string) (serializedResult string, resultError error)
+	Execute(enclaveCtx *enclaves.EnclaveContext, serializedParams string) (serializedResult string, resultError error)
 }

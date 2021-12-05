@@ -4,6 +4,14 @@ orbs:
   npm-publisher: uraway/npm-publisher@0.2.0
   kurtosis-docs-checker: kurtosis-tech/docs-checker@0.2.0
 
+parameters:
+  go-version:
+    type: string
+    default: 1.15.13
+  node-version:
+    type: string
+    default: 16.13.0
+
 # NOTE: Because CircleCI jobs run on separate machines from each other, we duplicate steps (like checkout) between jobs. This is because doing the "correct" DRY
 #  refactoring of, "one job for checkout, one job for build Docker image, etc." would require a) persisting files between jobs and b) persisting Docker images between
 #  jobs. Both are annoying (saving/loading workspaces require re-downloading the workspace over the network, and there doesn't seem to be a good way to do Docker
@@ -12,7 +20,7 @@ orbs:
 jobs:
   check_golang:
     docker:
-      - image: cimg/go:1.15.13
+      - image: "cimg/go:<< pipeline.parameters.go-version>>"
     steps:
       - checkout
 
@@ -27,7 +35,7 @@ jobs:
 
   check_typescript:
     docker:
-      - image: cimg/node:14.17.1
+      - image: "cimg/node:<< pipeline.parameters.node-version>>"
     steps:
       - checkout
 
@@ -42,7 +50,7 @@ jobs:
 
   publish_typescript:
     docker:
-      - image: cimg/node:14.17.1
+      - image: "cimg/node:<< pipeline.parameters.node-version>>"
     steps:
       - checkout
       - run: typescript/scripts/build.sh
@@ -61,18 +69,6 @@ workflows:
                     {
                         "pattern": "^../kurtosis-core",
                         "replacement": "https://docs.kurtosistech.com/kurtosis-core"
-                    },
-                    {
-                        "pattern": "^../kurtosis-libs",
-                        "replacement": "https://docs.kurtosistech.com/kurtosis-libs"
-                    },
-                    {
-                        "pattern": "^../kurtosis-testsuite-api-lib",
-                        "replacement": "https://docs.kurtosistech.com/kurtosis-testsuite-api-lib"
-                    },
-                    {
-                        "pattern": "^../kurtosis-client",
-                        "replacement": "https://docs.kurtosistech.com/kurtosis-client"
                     }
                 ]
             }

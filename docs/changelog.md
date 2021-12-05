@@ -1,5 +1,31 @@
 # TBD
 
+# 0.12.0
+### Features
+* Upgraded to `minimal-grpc-server` 0.5.0
+* Added a root `scripts/build.sh` to build all languages
+* Added test to ensure that a new Kurt Core version with an API break will remind the user to add a breaking change in this library's changelog
+
+### Changes
+* Replaced the old `kurtosis-client` with `kurtosis-core-api-lib`
+
+### Fixes
+* A `nil` value passed to `stacktrace.Propagate` now panics
+
+### Removals
+* Removed the Protobuf API file & generated binding files, as the module's API is now defined in [Kurtosis Core API Lib](https://github.com/kurtosis-tech/kurtosis-core-api-lib) rather than here
+* Removed the Docker & RPC API constants packages, as the information they used to contain now comes from the args that the module container is passed in
+
+### Breaking Changes
+* The `kurtosis-client` dependency has been replaced with the [Kurtosis Core API Lib](https://github.com/kurtosis-tech/kurtosis-core-api-lib) dependency
+    * Users of any module languages (Go or Typescript) will need to:
+        * Replace all instances of the old `NetworkContext` with the new `EnclaveContext`
+    * Go module users will need to:
+        * Replace the `github.com/kurtosis-tech/kurtosis-client` dependency in their `go.mod` file with a dependency on `github.com/kurtosis-tech/kurtosis-core-api-lib/api/golang`
+        * In all `import` statements, replace all instances of `github.com/kurtosis-tech/kurtosis-client` with `github.com/kurtosis-tech/kurtosis-core-api-lib/api/golang`
+    * Typescript module users will need to:
+        * Replace the dependency on `kurtosis-clietn` in their `package.json` with a dependency on `kurtosis-core-api-lib`
+
 # 0.11.1
 ### Changes
 * Upgraded to Kurt Client 0.20.0, which is compatible with new bind-mount style enclave data dirs

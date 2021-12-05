@@ -1,4 +1,4 @@
-import { ExecuteResponse } from "../kurtosis_module_rpc_api_bindings/executable_module_service_pb";
+import { ExecuteResponse } from "kurtosis-core-api-lib"
 
 export function newExecuteResponse(responseJson: string): ExecuteResponse {
     const result: ExecuteResponse = new ExecuteResponse();
