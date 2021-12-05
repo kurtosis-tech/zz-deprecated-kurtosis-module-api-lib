@@ -5,7 +5,7 @@
     "main": "./build/index",
     "types": "./build/index",
     "scripts": {
-        "build": "tsc && cp -R src/kurtosis_module_rpc_api_bindings build/",
+        "build": "tsc",
         "test": "ts-mocha -p tsconfig.json 'test/**/*.ts'"
     },
     "files": [
