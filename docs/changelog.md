@@ -6,6 +6,7 @@
 * A `nil` value passed to `stacktrace.Propagate` now panics
 
 ### Removals
+* Removed the Protobuf API file & generated binding files, as the module's API is now defined in [Kurtosis Core API Lib](https://github.com/kurtosis-tech/kurtosis-core-api-lib) rather than here
 * Removed the Docker & RPC API constants packages, as the information they used to contain now comes from the args that the module container is passed in
 
 ### Breaking Changes
