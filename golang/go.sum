@@ -46,12 +46,12 @@ github.com/google/go-cmp v0.5.5/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/
 github.com/google/uuid v1.1.2/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/grpc-ecosystem/grpc-gateway v1.16.0/go.mod h1:BDjrQk3hbvj6Nolgz8mAMFbcEtjT1g+wF4CSlocrBnw=
 github.com/konsorten/go-windows-terminal-sequences v1.0.1/go.mod h1:T0+1ngSBFLxvqU3pZ+m/2kptfBszLMUkC4ZK/EgS/cQ=
-github.com/kurtosis-tech/kurtosis-core-api-lib/api/golang v0.0.0-20211205191136-46c2a05d7814 h1:E38p1bbdWUpax7MwNW2eurHYiWO9H8z077kxJeVy18Y=
-github.com/kurtosis-tech/kurtosis-core-api-lib/api/golang v0.0.0-20211205191136-46c2a05d7814/go.mod h1:Q+zVN05WMA73yz6Y4huHHFxFjM1eCLeEipE79r2aTOQ=
-github.com/kurtosis-tech/kurtosis-core-api-lib/api/golang v0.0.0-20211205200500-20a68e75dded h1:46PCTZjlvWAn6amFb7qFhnGhcL6QFZsNYiWFLrGQGhM=
-github.com/kurtosis-tech/kurtosis-core-api-lib/api/golang v0.0.0-20211205200500-20a68e75dded/go.mod h1:Q+zVN05WMA73yz6Y4huHHFxFjM1eCLeEipE79r2aTOQ=
+github.com/kurtosis-tech/kurtosis-core-api-lib/api/golang v0.0.0-20211205213941-3bc7a073531c h1:yctb77ffVBRT1vyuOUTfRq9Kmh8Xd/N0vT56IKRqKzQ=
+github.com/kurtosis-tech/kurtosis-core-api-lib/api/golang v0.0.0-20211205213941-3bc7a073531c/go.mod h1:Q+zVN05WMA73yz6Y4huHHFxFjM1eCLeEipE79r2aTOQ=
 github.com/kurtosis-tech/minimal-grpc-server/golang v0.0.0-20211201000847-a204edc5a0b3 h1:Begoh17x/9rLWQLM64A8oINjoQk1DFKN2iwhQf1i0Rc=
 github.com/kurtosis-tech/minimal-grpc-server/golang v0.0.0-20211201000847-a204edc5a0b3/go.mod h1:Y0O+lt256iWpkdjDOB8r6csF96Pt3JVIFMbUuWIvr8o=
+github.com/kurtosis-tech/minimal-grpc-server/golang v0.0.0-20211205213336-a9a05de6ecda h1:Pd8NQhFBWvt0pWFKddUQM7o2no4UII61rdLhTF6orGg=
+github.com/kurtosis-tech/minimal-grpc-server/golang v0.0.0-20211205213336-a9a05de6ecda/go.mod h1:Y0O+lt256iWpkdjDOB8r6csF96Pt3JVIFMbUuWIvr8o=
 github.com/kurtosis-tech/stacktrace v0.0.0-20211028211901-1c67a77b5409 h1:YQTATifMUwZEtZYb0LVA7DK2pj8s71iY8rzweuUQ5+g=
 github.com/kurtosis-tech/stacktrace v0.0.0-20211028211901-1c67a77b5409/go.mod h1:y5weVs5d9wXXHcDA1awRxkIhhHC1xxYJN8a7aXnE6S8=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
