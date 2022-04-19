@@ -1,5 +1,12 @@
 # TBD
 
+# 0.13.0
+### Features
+* Upgrade to Kurt Core 1.41.1
+
+### Breaking Changes
+* Upgraded Kurt Core API lib to 1.41.1
+
 # 0.12.3
 ### Fixes
 * Upgrade to core-api-lib 1.36.8, to try and fix an issue where the Protobuf "empty" type isn't getting propagated
