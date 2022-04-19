@@ -8,6 +8,7 @@ import { ExecutableModuleServiceImpl } from "./executable_module_service_impl";
 import { ExecutableModuleServiceService } from "kurtosis-core-api-lib/build/kurtosis_core_rpc_api_bindings/executable_module_service_grpc_pb";
 
 const GRPC_SERVER_STOP_GRACE_PERIOD_SECONDS: number = 5;
+const API_CONTAINER_GRPC_PORT_NUM: number =
 
 // Docs available at https://docs.kurtosistech.com/kurtosis-module-api-lib/lib-documentation
 export class KurtosisModuleExecutor {
@@ -28,6 +29,11 @@ export class KurtosisModuleExecutor {
         const listenPortNum = args.listenPortNum;
         const enclaveDataDirMountpoint = args.enclaveDataDirMountpoint;
 
+        const apiContainerSocketFragments: string[] = apiContainerSocket.split(":");
+        const ipAddr: string = apiContainerSocketFragments[0]
+        const grpcPortNumStr: string = apiContainerSocketFragments[1]
+        const grpcPortNum: number = parseInt(grpcPortNumStr)
+
         const createModuleResult: Result<ExecutableKurtosisModule, Error> = this.configurator.parseParamsAndCreateExecutableModule(serializedCustomParams);
         if (createModuleResult.isErr()) {
             return err(createModuleResult.error);
@@ -35,12 +41,16 @@ export class KurtosisModuleExecutor {
         const module: ExecutableKurtosisModule = createModuleResult.value;
 
         // TODO SECURITY: Use HTTPS to verify we're hitting the correct API container
-        const apiClient: ApiContainerServiceClient = new ApiContainerServiceClient(apiContainerSocket, grpc.credentials.createInsecure());
-        const enclaveCtx: EnclaveContext = new EnclaveContext(
-            apiClient,
+        const createEnclaveCtxResult = await EnclaveContext.newGrpcNodeEnclaveContext(
+            ipAddr,
+            grpcPortNum,
             enclaveId,
             enclaveDataDirMountpoint,
         );
+        if (createEnclaveCtxResult.isErr()) {
+            return err(createEnclaveCtxResult.error);
+        }
+        const enclaveCtx = createEnclaveCtxResult.value;
 
         const serviceImpl: ExecutableModuleServiceImpl = new ExecutableModuleServiceImpl(
             module,
