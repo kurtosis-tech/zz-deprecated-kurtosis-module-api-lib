@@ -1,4 +1,9 @@
 # TBD
+### Features
+* Upgrade to Kurt Core 1.41.1
+
+### Breaking Changes
+* Upgraded Kurt Core API lib to 1.41.1
 
 # 0.12.3
 ### Fixes
