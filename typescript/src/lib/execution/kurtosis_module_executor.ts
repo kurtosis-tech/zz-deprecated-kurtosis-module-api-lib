@@ -1,4 +1,4 @@
-import { ApiContainerServiceClient, EnclaveContext, getArgsFromEnv } from "kurtosis-core-api-lib";
+import { EnclaveContext, getArgsFromEnv } from "kurtosis-core-api-lib";
 import { err, ok, Result } from "neverthrow";
 import { ExecutableKurtosisModule } from "../kurtosis_modules/executable_kurtosis_modules";
 import { KurtosisModuleConfigurator } from "./kurtosis_module_configurator";
@@ -8,7 +8,6 @@ import { ExecutableModuleServiceImpl } from "./executable_module_service_impl";
 import { ExecutableModuleServiceService } from "kurtosis-core-api-lib/build/kurtosis_core_rpc_api_bindings/executable_module_service_grpc_pb";
 
 const GRPC_SERVER_STOP_GRACE_PERIOD_SECONDS: number = 5;
-const API_CONTAINER_GRPC_PORT_NUM: number =
 
 // Docs available at https://docs.kurtosistech.com/kurtosis-module-api-lib/lib-documentation
 export class KurtosisModuleExecutor {
