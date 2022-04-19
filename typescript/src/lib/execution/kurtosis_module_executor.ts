@@ -1,4 +1,4 @@
-import { ApiContainerServiceClient, EnclaveContext, getArgsFromEnv } from "kurtosis-core-api-lib";
+import { EnclaveContext, getArgsFromEnv } from "kurtosis-core-api-lib";
 import { err, ok, Result } from "neverthrow";
 import { ExecutableKurtosisModule } from "../kurtosis_modules/executable_kurtosis_modules";
 import { KurtosisModuleConfigurator } from "./kurtosis_module_configurator";
@@ -28,6 +28,11 @@ export class KurtosisModuleExecutor {
         const listenPortNum = args.listenPortNum;
         const enclaveDataDirMountpoint = args.enclaveDataDirMountpoint;
 
+        const apiContainerSocketFragments: string[] = apiContainerSocket.split(":");
+        const ipAddr: string = apiContainerSocketFragments[0]
+        const grpcPortNumStr: string = apiContainerSocketFragments[1]
+        const grpcPortNum: number = parseInt(grpcPortNumStr)
+
         const createModuleResult: Result<ExecutableKurtosisModule, Error> = this.configurator.parseParamsAndCreateExecutableModule(serializedCustomParams);
         if (createModuleResult.isErr()) {
             return err(createModuleResult.error);
@@ -35,12 +40,16 @@ export class KurtosisModuleExecutor {
         const module: ExecutableKurtosisModule = createModuleResult.value;
 
         // TODO SECURITY: Use HTTPS to verify we're hitting the correct API container
-        const apiClient: ApiContainerServiceClient = new ApiContainerServiceClient(apiContainerSocket, grpc.credentials.createInsecure());
-        const enclaveCtx: EnclaveContext = new EnclaveContext(
-            apiClient,
+        const createEnclaveCtxResult = await EnclaveContext.newGrpcNodeEnclaveContext(
+            ipAddr,
+            grpcPortNum,
             enclaveId,
             enclaveDataDirMountpoint,
         );
+        if (createEnclaveCtxResult.isErr()) {
+            return err(createEnclaveCtxResult.error);
+        }
+        const enclaveCtx = createEnclaveCtxResult.value;
 
         const serviceImpl: ExecutableModuleServiceImpl = new ExecutableModuleServiceImpl(
             module,
