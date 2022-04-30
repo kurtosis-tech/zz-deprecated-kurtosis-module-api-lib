@@ -1,5 +1,9 @@
 # TBD
 
+# 0.14.1
+### Changes
+* Use Core 1.45.3 (API breaks were actually intended to go in last version)
+
 # 0.14.0
 ### Breaking Changes
 * Upgraded engine API lib to 1.17.3
