@@ -26,7 +26,6 @@ export class KurtosisModuleExecutor {
         const serializedCustomParams = args.serializedCustomParams;
         const enclaveId = args.enclaveId;
         const listenPortNum = args.listenPortNum;
-        const enclaveDataDirMountpoint = args.enclaveDataDirMountpoint;
 
         const apiContainerSocketFragments: string[] = apiContainerSocket.split(":");
         const ipAddr: string = apiContainerSocketFragments[0]
@@ -44,7 +43,6 @@ export class KurtosisModuleExecutor {
             ipAddr,
             grpcPortNum,
             enclaveId,
-            enclaveDataDirMountpoint,
         );
         if (createEnclaveCtxResult.isErr()) {
             return err(createEnclaveCtxResult.error);
