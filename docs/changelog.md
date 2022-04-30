@@ -1,5 +1,10 @@
 # TBD
 
+# 0.14.0
+### Breaking Changes
+* Upgraded engine API lib to 1.17.3
+    * Users should see [the changes done in v1.44.0 and 1.45.0, and follow the remediation steps there](https://docs.kurtosistech.com/kurtosis-core/changelog)
+
 # 0.13.0
 ### Features
 * Upgrade to Kurt Core 1.41.1
