@@ -1,4 +1,6 @@
 # TBD
+
+# 0.15.0
 ### Breaking Changes
 * Upgraded to Core 1.46.0, to work with latest version of Kurtosis CLI
     * Users should upgrade to the latest engine and run `kurtosis engine restart`
