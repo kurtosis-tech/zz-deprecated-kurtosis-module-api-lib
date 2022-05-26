@@ -1,5 +1,9 @@
 # TBD
 
+# 0.16.0
+### Breaking Changes
+* Upgraded to Core 1.54.1
+
 # 0.15.0
 ### Breaking Changes
 * Upgraded to Core 1.46.0, to work with latest version of Kurtosis CLI
