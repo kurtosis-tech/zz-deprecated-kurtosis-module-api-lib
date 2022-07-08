@@ -1,5 +1,7 @@
 # TBD
 
+* Migrate repo to use internal cli tool `kudet` for releasing
+
 # 0.17.0
 ### Breaking Changes
 * Upgraded to Core 1.55.2
