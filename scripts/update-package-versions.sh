@@ -9,7 +9,8 @@ root_dirpath="$(dirname "${script_dirpath}")"
 # ==================================================================================================
 #                                             Constants
 # ==================================================================================================
-UPDATE_PACKAGE_VERSIONS_SCRIPT_FILENAME="pre-release-script_update-package-versions.sh"    # From devtools; expected to be on the PATH
+PACKAGE_JSON_FILEPATH="typescript/package.json"
+REPLACE_PATTERN="\"version\": \"%s\""
 
 # ==================================================================================================
 #                                       Arg Parsing & Validation
@@ -17,7 +18,7 @@ UPDATE_PACKAGE_VERSIONS_SCRIPT_FILENAME="pre-release-script_update-package-versi
 show_helptext_and_exit() {
     echo "Usage: $(basename "${0}") new_version"
     echo ""
-    echo "  new_version   The version of this repo that is about to released"
+    echo "  new_version         The new version that the package files should contain"
     echo ""
     exit 1  # Exit with an error so that if this is accidentally called by CI, the script will fail
 }
@@ -29,8 +30,11 @@ if [ -z "${new_version}" ]; then
     show_helptext_and_exit
 fi
 
-
 # ==================================================================================================
 #                                             Main Logic
 # ==================================================================================================
-bash "${UPDATE_PACKAGE_VERSIONS_SCRIPT_FILENAME}" "${root_dirpath}" "${new_version}"
+to_update_abs_filepath="${root_dirpath}/${PACKAGE_JSON_FILEPATH}"
+if ! $(kudet update-version-in-file "${to_update_abs_filepath}" "${REPLACE_PATTERN}" "${new_version}"); then
+    echo "Error: An error occurred setting new version '${new_version}' in constants file '${constant_file_abs_filepath}' using pattern '${replace_pattern}'" >&2
+    exit 1
+fi
