@@ -1,8 +1,13 @@
 # TBD
 
+### Breaking Changes
+* Upgrade to Core 1.57.0
+  * Users should upgrade to the latest engine and restart their Kurtosis engine
+
+### Changes
 * Migrate repo to use internal cli tool `kudet` for releasing
 * Merge `develop` into `master`
-* Upgrade to Core 1.57.0
+
 
 # 0.17.0
 ### Breaking Changes
