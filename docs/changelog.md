@@ -1,7 +1,7 @@
 # TBD
 
 ### Breaking Changes
-* Upgrade to Core 1.57.6 and engine to 1.31.3
+* Upgrade to Core 1.57.6
   * Users should restart their Kurtosis engine restart their Kurtosis engine
   
 # 0.19.0
