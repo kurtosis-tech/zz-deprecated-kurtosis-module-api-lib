@@ -1,5 +1,11 @@
 # TBD
 
+### Changes
+* Upgrade Core to 1.58.0
+### Breaking Changes
+* Upgraded Core to 1.58.0 - which archives the contents of the directory in the root of the archive without additional nesting
+  * Users should now refer directly to files & directories within the directory that was copied without referring to the directory name
+
 # 0.20.0
 
 ### Breaking Changes
