@@ -3,7 +3,7 @@
 ### Changes
 * Upgrade Core to 1.58.0
 ### Breaking Changes
-* Upgraded Core to 1.58.0 - which archives the contents of the directory in the root of the archive without additional nesting
+* Upgraded Core to 1.58.0 - when you now use the `EnclaveContext.UploadFiles` for a directory, the resulting archive artifact will contain the _contents_ of the directory in the root of the archive. The previous implementation would put the _contents_ inside a folder with the same name as the directory, the new implementation avoids this nesting.
   * Users should now refer directly to files & directories within the directory that was copied without referring to the directory name
 
 # 0.20.0
