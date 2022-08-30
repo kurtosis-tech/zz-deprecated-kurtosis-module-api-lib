@@ -1,5 +1,12 @@
 # TBD
 
+### Changes
+* Upgrade Core to 1.58.0 which changes the behaviour of `EnclaveContext.UploadFiles`
+
+### Breaking Changes
+* Upgraded Core to 1.58.0 - when you now use the `EnclaveContext.UploadFiles` for a directory, the resulting archive artifact will contain the _contents_ of the directory in the root of the archive. The previous implementation would put the _contents_ inside a folder with the same name as the directory, the new implementation avoids this nesting.
+  * User who access the artifact on their service should now directly access the files and directories(within the directory uploaded) at the mount point. Any previous paths that contain references to the name of the directory uploaded should be replaced to not have that name. The directory structure within the directory that was uploaded has been preserved.
+
 # 0.20.0
 
 ### Breaking Changes
