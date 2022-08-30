@@ -4,7 +4,7 @@
 * Upgrade Core to 1.58.0
 ### Breaking Changes
 * Upgraded Core to 1.58.0 - when you now use the `EnclaveContext.UploadFiles` for a directory, the resulting archive artifact will contain the _contents_ of the directory in the root of the archive. The previous implementation would put the _contents_ inside a folder with the same name as the directory, the new implementation avoids this nesting.
-  * Users should now refer directly to files & directories within the directory that was copied without referring to the directory name
+  * Users should remove references to the name of the directory on the module container as files and directories within the directory that was uploaded will be available in the root of the mount within the service container.
 
 # 0.20.0
 
