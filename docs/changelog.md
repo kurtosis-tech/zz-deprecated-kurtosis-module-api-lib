@@ -1,5 +1,7 @@
 # TBD
 
+# 0.21.0
+
 ### Changes
 * Upgrade Core to 1.58.0 which changes the behaviour of `EnclaveContext.UploadFiles`
 
