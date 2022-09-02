@@ -1,7 +1,8 @@
 # TBD
+### Changes
+* Upgrade to core to 1.58.1
 
 # 0.21.0
-
 ### Changes
 * Upgrade Core to 1.58.0 which changes the behaviour of `EnclaveContext.UploadFiles`
 
@@ -10,13 +11,11 @@
   * User who access the artifact on their service should now directly access the files and directories(within the directory uploaded) at the mount point. Any previous paths that contain references to the name of the directory uploaded should be replaced to not have that name. The directory structure within the directory that was uploaded has been preserved.
 
 # 0.20.0
-
 ### Breaking Changes
 * Upgrade to Core 1.57.6
   * Users should restart their Kurtosis engine restart their Kurtosis engine
   
 # 0.19.0
-
 ### Breaking Changes
 * Upgrade to Core 1.57.3 and engine to 1.31.0
   * Users should restart their Kurtosis engine restart their Kurtosis engine
@@ -24,7 +23,6 @@
 # 0.18.1
 
 # 0.18.0
-
 ### Breaking Changes
 * Upgrade to Core 1.57.0
   * Users should restart their Kurtosis engine restart their Kurtosis engine
