@@ -1,5 +1,8 @@
 # TBD
 
+### Changes
+* Upgraded core to 1.58.2 which exposes a `EnclaveContext.RenderTemplates` method in the SDK.
+
 # 0.21.1
 ### Changes
 * Upgrade to core to 1.58.1
