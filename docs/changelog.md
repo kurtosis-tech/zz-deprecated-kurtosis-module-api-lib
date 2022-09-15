@@ -1,5 +1,15 @@
 # TBD
 
+### Changes
+* Upgraded core to 1.59.0
+
+### Breaking changes
+* Upgraded core to 1.59.0
+  * Added `privateIPAddrPlaceholder` field to the `ContainerConfig object`. This defaults to `"KURTOSIS_IP_ADDR_PLACEHOLDER"` in case the user doesn't supply it. Kurtosis will replace the placeholder in the entry point args, env vars & cmd args with the private ip address of the container while starting the container.
+  * Changed the `EnclaveContext.AddService`, `EnclaveContext.AddServices`, `EnclaveContext.AddServiceToPartition` and `EnclaveContext.AddServicesToPartition` to accept a `ContainerConfig` object instead of a `ContainerConfigSupplier`
+  * Now the user can simply pass in a `containerConfig ContainerConfig` over supplying a `serviceConfigSupplier func(ipAddr string) (*services.ContainerConfig, error)` which supports a `privateIPAddrPlaceholder` mentioned above.
+
+
 # 0.21.2
 
 ### Fixes
