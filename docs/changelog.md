@@ -1,7 +1,8 @@
 # TBD
+### Changes
+* Upgraded core to 1.59.3
 
 # 0.22.2
-
 ### Changes
 * Upgraded core to 1.59.2
 
