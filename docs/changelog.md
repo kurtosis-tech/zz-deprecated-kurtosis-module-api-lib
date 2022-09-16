@@ -1,7 +1,8 @@
 # TBD
+### Changes
+* Upgraded core to 1.59.1 and engine to 1.34.0
 
 # 0.22.0
-
 ### Changes
 * Upgraded core to 1.59.0
 
@@ -13,7 +14,6 @@
 
 
 # 0.21.2
-
 ### Fixes
 * Upgraded core to 1.58.3 which fixes how we handle json in the `RenderTemplatesToFilesArtifact` end point.
 
