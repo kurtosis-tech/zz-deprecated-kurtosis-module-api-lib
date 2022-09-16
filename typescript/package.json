@@ -1,6 +1,6 @@
 {
     "name": "kurtosis-module-api-lib",
-    "version": "0.22.2",
+    "version": "0.22.3",
     "description": "This repo contains a Typescript library for writing a Kurtosis module",
     "main": "./build/index",
     "types": "./build/index",
