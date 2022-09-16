@@ -1,5 +1,9 @@
 # TBD
 
+### Changes
+* Upgraded core to 1.59.2
+
+
 # 0.22.1
 ### Changes
 * Upgraded core to 1.59.1 and engine to 1.34.0
