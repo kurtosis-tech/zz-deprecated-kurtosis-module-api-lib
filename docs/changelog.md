@@ -1,5 +1,7 @@
 # TBD
 
+# 0.22.5
+
 ### Changes
 * Use `kurtosis-core-sdk` instead of `kurtosis-core-api-lib`
 
