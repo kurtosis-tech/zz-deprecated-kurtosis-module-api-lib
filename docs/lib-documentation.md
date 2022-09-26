@@ -42,6 +42,6 @@ Executor which accepts a [KurtosisModuleConfigurator][kurtosismoduleconfigurator
 ### run()
 Runs the gRPC server exposing the functionality of the Kurtosis module created by the [KurtosisModuleConfigurator][kurtosismoduleconfigurator] passed in at construction time.
 
-[enclavecontext]: ../kurtosis-core/lib-documentation#enclavecontext
+[enclavecontext]: ../kurtosis/core-lib-documentation#enclavecontext
 [kurtosismoduleconfigurator]: #kurtosismoduleconfigurator
 [executablekurtosismodule]: #executablekurtosismodule

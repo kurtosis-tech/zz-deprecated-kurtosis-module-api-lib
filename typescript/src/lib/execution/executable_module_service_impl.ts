@@ -1,5 +1,5 @@
 import * as grpc from "@grpc/grpc-js";
-import { EnclaveContext, ExecuteArgs, ExecuteResponse, IExecutableModuleServiceServer } from "kurtosis-core-api-lib";
+import { EnclaveContext, ExecuteArgs, ExecuteResponse, IExecutableModuleServiceServer } from "kurtosis-core-sdk";
 import { KnownKeysOnly } from "minimal-grpc-server";
 import { newExecuteResponse } from "../constructor_calls";
 import { ExecutableKurtosisModule } from "../kurtosis_modules/executable_kurtosis_modules";

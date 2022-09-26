@@ -1,4 +1,4 @@
-import { EnclaveContext } from "kurtosis-core-api-lib";
+import { EnclaveContext } from "kurtosis-core-sdk";
 import { Result } from "neverthrow";
 
 // Docs available at https://docs.kurtosistech.com/kurtosis-module-api-lib/lib-documentation
