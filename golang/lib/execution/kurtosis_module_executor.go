@@ -18,9 +18,9 @@
 package execution
 
 import (
-	"github.com/kurtosis-tech/kurtosis-core-api-lib/api/golang/kurtosis_core_rpc_api_bindings"
-	"github.com/kurtosis-tech/kurtosis-core-api-lib/api/golang/lib/enclaves"
-	"github.com/kurtosis-tech/kurtosis-core-api-lib/api/golang/module_launch_api"
+	"github.com/kurtosis-tech/kurtosis-core-sdk/api/golang/kurtosis_core_rpc_api_bindings"
+	"github.com/kurtosis-tech/kurtosis-core-sdk/api/golang/lib/enclaves"
+	"github.com/kurtosis-tech/kurtosis-core-sdk/api/golang/module_launch_api"
 	grpc_server "github.com/kurtosis-tech/minimal-grpc-server/golang/server"
 	"github.com/kurtosis-tech/stacktrace"
 	"google.golang.org/grpc"

@@ -19,8 +19,8 @@ package execution
 
 import (
 	"context"
-	"github.com/kurtosis-tech/kurtosis-core-api-lib/api/golang/kurtosis_core_rpc_api_bindings"
-	"github.com/kurtosis-tech/kurtosis-core-api-lib/api/golang/lib/enclaves"
+	"github.com/kurtosis-tech/kurtosis-core-sdk/api/golang/kurtosis_core_rpc_api_bindings"
+	"github.com/kurtosis-tech/kurtosis-core-sdk/api/golang/lib/enclaves"
 	"github.com/kurtosis-tech/kurtosis-module-api-lib/golang/lib/kurtosis_modules"
 	"github.com/kurtosis-tech/stacktrace"
 	"google.golang.org/protobuf/types/known/emptypb"

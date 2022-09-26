@@ -3,7 +3,7 @@ package lib
 import (
 	"fmt"
 	"github.com/blang/semver"
-	"github.com/kurtosis-tech/kurtosis-core-api-lib/api/golang/kurtosis_core_version"
+	"github.com/kurtosis-tech/kurtosis-core-sdk/api/golang/kurtosis_core_version"
 	"github.com/stretchr/testify/require"
 	"testing"
 )
@@ -22,7 +22,7 @@ const (
 	//    lib's changelog whenever a breaking Core API version change happens
 	//  * Therefore, this constant must be manually updated to the X.Y version of the Core version you just
 	//    bumped to, which will remind you to update the "Breaking Change" section of the changelog.
-	expectedCoreMajorMinorVersion = "1.59"
+	expectedCoreMajorMinorVersion = "0.49"
 	// !!!!!! BEFORE YOU UPDATE THIS CONSTANT TO FIX THE TEST, ADD A "BREAKING CHANGE" SECTION IN THE CHANGELOG !!!!!!
 )
 

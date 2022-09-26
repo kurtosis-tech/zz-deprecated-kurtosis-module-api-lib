@@ -1,5 +1,8 @@
 # TBD
 
+### Changes
+* Use `kurtosis-core-sdk` instead of `kurtosis-core-api-lib`
+
 # 0.22.4
 ### Changes
 * Upgraded core to 1.59.5
