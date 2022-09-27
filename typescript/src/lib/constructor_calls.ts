@@ -1,4 +1,4 @@
-import { ExecuteResponse } from "kurtosis-core-sdk"
+import { ExecuteResponse } from "kurtosis-sdk"
 
 export function newExecuteResponse(responseJson: string): ExecuteResponse {
     const result: ExecuteResponse = new ExecuteResponse();
