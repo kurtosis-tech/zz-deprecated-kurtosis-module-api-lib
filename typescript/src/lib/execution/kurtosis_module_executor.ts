@@ -1,11 +1,11 @@
-import { EnclaveContext, getArgsFromEnv } from "kurtosis-core-sdk";
+import { EnclaveContext, getArgsFromEnv } from "kurtosis-sdk";
 import { err, ok, Result } from "neverthrow";
 import { ExecutableKurtosisModule } from "../kurtosis_modules/executable_kurtosis_modules";
 import { KurtosisModuleConfigurator } from "./kurtosis_module_configurator";
 import * as grpc from "@grpc/grpc-js";
 import { MinimalGRPCServer, TypedServerOverride } from "minimal-grpc-server";
 import { ExecutableModuleServiceImpl } from "./executable_module_service_impl";
-import { ExecutableModuleServiceService } from "kurtosis-core-sdk/build/kurtosis_core_rpc_api_bindings/executable_module_service_grpc_pb";
+import { ExecutableModuleServiceService } from "kurtosis-sdk/build/core/kurtosis_core_rpc_api_bindings/executable_module_service_grpc_pb";
 
 const GRPC_SERVER_STOP_GRACE_PERIOD_SECONDS: number = 5;
 

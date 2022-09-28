@@ -1,5 +1,11 @@
 # TBD
 
+### Changes
+* Uses `kurtosis-sdk` instead of `kurtoiss-core-sdk`
+
+### Breaking Changes
+* Uses `kurtosis-sdk` instead of `kurtoiss-core-sdk`
+
 # 0.22.5
 
 ### Changes

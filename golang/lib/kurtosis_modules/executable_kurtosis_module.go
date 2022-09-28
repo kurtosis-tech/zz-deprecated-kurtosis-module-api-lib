@@ -17,7 +17,7 @@
 
 package kurtosis_modules
 
-import "github.com/kurtosis-tech/kurtosis-core-sdk/api/golang/lib/enclaves"
+import "github.com/kurtosis-tech/kurtosis-sdk/api/golang/core/lib/enclaves"
 
 // Docs available at https://docs.kurtosistech.com/kurtosis-module-api-lib/lib-documentation
 type ExecutableKurtosisModule interface {

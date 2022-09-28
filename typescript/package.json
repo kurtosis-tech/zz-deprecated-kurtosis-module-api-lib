@@ -37,7 +37,7 @@
         "typescript": "^4.3.5"
     },
     "dependencies": {
-        "kurtosis-core-sdk": "0.49.3",
+        "kurtosis-sdk": "0.49.6",
         "loglevel": "^1.7.1",
         "minimal-grpc-server": "0.6.0",
         "neverthrow": "^4.2.2"
