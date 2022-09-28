@@ -1,5 +1,7 @@
 # TBD
 
+# 0.23.0
+
 ### Changes
 * Uses `kurtosis-sdk` instead of `kurtoiss-core-sdk`
 
