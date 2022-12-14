@@ -1,3 +1,6 @@
+# DEPRECATION NOTICE
+This has been replaced in favor of [Starlark Packages](https://docs.kurtosis.com/reference/packages/)
+
 Kurtosis Module API LIB 
 =======================
 
